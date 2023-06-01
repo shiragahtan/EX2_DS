@@ -5,6 +5,22 @@
 
 
 
+class costumer{
+
+public:
+    int c_id;
+    int phoneNum;
+    bool isMember;
+};
+
+class Record{
+public:
+    int r_id;
+    int numCopies;
+    int numPurchases;
+};
+
+
 class RecordsCompany {
   private:
     // todo
