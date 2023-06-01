@@ -2,15 +2,27 @@
 #define RECORDS_COMPANY_H
 
 #include "utilesWet2.h"
+#include "AvlTree.h"
+
+class clubMember;
+class Costumer;
+class Record;
+
+class clubMember{
+public:
+    clubMember(int c_id, int treeSaleAmount, int selfSaleAmount);
+    int m_c_id;
+    int treeSaleAmount;
+    int selfSaleAmount;
+};
 
 
 class Costumer{
-
 public:
     Costumer(int c_id, int phone);
     int m_c_id;
     int m_phoneNum;
-    bool m_isMember;
+    *clubMember m_clubMember; //a ptr to his node in the tree
 };
 
 class Record{
@@ -21,10 +33,17 @@ public:
     int m_numPurchases;
 };
 
+class Hash{
+
+public:
+};
+
+
 
 class RecordsCompany {
   private:
-    // todo
+    AvlTree<int,clubMember> membersTree;
+
   public:
     RecordsCompany();
     ~RecordsCompany();
