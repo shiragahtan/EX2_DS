@@ -4,20 +4,21 @@
 #include "utilesWet2.h"
 
 
-
-class costumer{
+class Costumer{
 
 public:
-    int c_id;
-    int phoneNum;
-    bool isMember;
+    Costumer(int c_id, int phone);
+    int m_c_id;
+    int m_phoneNum;
+    bool m_isMember;
 };
 
 class Record{
 public:
-    int r_id;
-    int numCopies;
-    int numPurchases;
+    Record(int r_id, int numCopies, int numOrders);
+    int m_r_id;
+    int m_numCopies;
+    int m_numPurchases;
 };
 
 
