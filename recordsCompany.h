@@ -3,6 +3,8 @@
 
 #include "utilesWet2.h"
 #include "AvlTree.h"
+#include "Structures.h"
+
 
 class clubMember;
 class Costumer;
@@ -33,10 +35,6 @@ public:
     int m_numPurchases;
 };
 
-class Hash{
-
-public:
-};
 
 
 
