@@ -169,7 +169,7 @@ int main(){
     }
 
     //randomizes the vector, and k is the number of trees to randomize - change k to test different numbers of trees
-    for (int k = 1; k < 500; ++k) {
+    for (int k = 1; k < 1000; ++k) {
         count = k;
         unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
         shuffle (vector.begin(), vector.end(), std::default_random_engine(seed));
