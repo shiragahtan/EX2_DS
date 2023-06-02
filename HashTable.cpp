@@ -50,9 +50,12 @@ Costumer HashTable::search(int key) const{
 
 int HashTable::searchIfExists(int key) const{
     int indexOfMember = hashFunction(key);
+    if (costumerArr[indexOfMember] == nullptr){
+        return NOT_IN_HASH;
+    }
     Node<int,Costumer> *costumerNode = costumerArr[indexOfMember]->find(key);
     if (costumerNode == nullptr){
-        return DOESNT_EXIST;
+        return NOT_IN_HASH;
     }
     return costumerNode->m_info.m_phoneNum;
 }

@@ -37,6 +37,7 @@ StatusType RecordsCompany::newMonth(int *records_stocks, int number_of_records) 
         UFArray[i]=new UFNode(i);
     }
     UF=new UnionFind(UFArray);
+    //TODO: to update about money of members in AVLTREE
 }
 
 Output_t<bool> RecordsCompany::isMember(int c_id){
@@ -44,9 +45,24 @@ Output_t<bool> RecordsCompany::isMember(int c_id){
         return INVALID_INPUT;
     }
     int searchAnswer = membersHash.searchIfExists(c_id);
-    if (searchAnswer == DOESNT_EXIST){
-        return Output_t<bool>(DOESNT_EXIST);
+    if (searchAnswer == NOT_IN_HASH){
+        return Output_t<bool>(DOESNT_EXISTS);
     }
     Costumer costumer = membersHash.search(c_id);
     return Output_t<bool>(costumer.clubMember);
+}
+
+StatusType RecordsCompany::makeMember(int c_id) {
+    if (c_id < 0){
+        return INVALID_INPUT;
+    }
+    int searchAnswer = membersHash.searchIfExists(c_id);
+    if (searchAnswer == NOT_IN_HASH){
+        return DOESNT_EXISTS;
+    }
+    Costumer costumerToUpdate = membersHash.search(c_id);
+    if (costumerToUpdate.clubMember){
+        return ALREADY_EXISTS;
+    }
+    //TODO: add the member to the tree
 }
