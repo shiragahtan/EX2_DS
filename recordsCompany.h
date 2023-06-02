@@ -11,7 +11,10 @@ class RecordsCompany {
     AvlTree<int,clubMember> membersTree;
     HashTable membersHash;
 
+
   public:
+    UFNode** UFArray;
+    UnionFind* UF;
     RecordsCompany();
     ~RecordsCompany();
     StatusType newMonth(int *records_stocks, int number_of_records);
