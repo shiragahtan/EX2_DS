@@ -10,24 +10,7 @@ using namespace std;
 
 #define FAILED 0
 #define SUCCEED 1
-#include "wet1util.h"
 #include <exception>
-
-class MovieByRate{
-
-public:
-    MovieByRate();
-    MovieByRate(int id, bool isVip, int views, Genre genre);
-    int movieId;
-    bool vipOnly;
-    int numberOfWatches;
-    int numRates;
-    Genre m_genre;
-    double totalRate;
-    friend bool operator<(const MovieByRate& movie1, const MovieByRate& movie2);
-};
-
-class MovieByRate;
 
 template <class Key, class Value>
 class Node {
@@ -53,7 +36,6 @@ private:
     int inorderAux(Node<Key, Value>* node, int* arr, int count=0) const;
     int inorderOppositeAux(Node<Key, Value>* node, int* arr, int count=0) const;
     Node<Key, Value>* findAux(Node<Key, Value>* parent, Key key) const;
-    Node<Key, Value>* findAux(Node<Key, Value>* parent, MovieByRate value) const;
     void removeAux(Node<Key, Value>* node, Node<Key, Value>* nodeToReplace);
     void nodeNotParentRemove(Node<Key, Value>* node, Node<Key, Value>* nextNode);
     Node<Key, Value>* findNextNode (Node<Key, Value>* node);
@@ -64,7 +46,6 @@ private:
     Node<Key, Value>* correctPositiveBF(Node<Key, Value>* node);
     Node<Key, Value>* correctNegativeBF(Node<Key, Value>* node);
     int checkWhichChild(Node<Key, Value>* parent, int key) const;
-    int checkWhichChild(Node<Key, Value>* parent, MovieByRate value) const;
     int checkWhichDirection(Node<Key, Value>* parent, Node<Key, Value>* node);
 
 public:
@@ -79,14 +60,11 @@ public:
     Node<Key, Value>* find(Key key) const;
     void remove(Key key);
     int insert(Key key, Value info);
-    int insert(MovieByRate info);
     void inorder(int* arr) const;
     void deleteTree(Node<Key, Value>* node);
     Node<Key, Value>* getMax();
     ~AvlTree();
     void deleteTree();
-    Node<Key, Value>* find(MovieByRate value) const;
-    void remove(MovieByRate value);
     void inorderOpposite(int* arr) const;
 
 };
@@ -97,8 +75,6 @@ static int RIGHT_CHILD =2;
 static int NOT_A_CHILD = 0;
 static int NO_DECISION = 0;
 static int ALLOCATION_ERROR = 3;
-
-#include "StreamingDBa1.h"
 
 template <class Key, class Value>
 AvlTree<Key, Value>:: ~AvlTree(){
@@ -211,28 +187,6 @@ int AvlTree<Key, Value>::insert(Key key, Value info){
 }
 
 template <class Key, class Value>
-int AvlTree<Key, Value>::insert(MovieByRate info){
-    if (!this->root){
-        try {
-            auto node1 = new Node<Key, Value>(info.movieId, info);
-            root = node1;
-            m_size++;
-            return SUCCEED;
-        }
-        catch (std::exception &exe){
-            return ALLOCATION_ERROR;
-        }
-    }
-    if ((this->find(info) != nullptr)){
-        return FAILED;
-    }
-    m_size++;
-    auto newNode = new Node<Key, Value>(info.movieId, info);
-    insertAux(this->root,newNode);
-    return SUCCEED;
-}
-
-template <class Key, class Value>
 int AvlTree<Key, Value>::checkWhichChild(Node<Key, Value>* parent, int key) const{
     if (parent->m_key > key ){
         if (parent->m_left){
@@ -240,21 +194,6 @@ int AvlTree<Key, Value>::checkWhichChild(Node<Key, Value>* parent, int key) cons
         }
     }
     else if (parent->m_key < key){
-        if (parent->m_right){
-            return RIGHT_CHILD;
-        }
-    }
-    return NOT_A_CHILD;
-}
-
-template <class Key, class Value>
-int AvlTree<Key, Value>::checkWhichChild(Node<Key, Value>* parent, MovieByRate value) const{
-    if (parent->m_info > value ){
-        if (parent->m_left){
-            return LEFT_CHILD;
-        }
-    }
-    else if (parent->m_info < value){
         if (parent->m_right){
             return RIGHT_CHILD;
         }
@@ -278,21 +217,6 @@ Node<Key, Value>* AvlTree<Key, Value>::findAux(Node<Key, Value>* parent, Key key
 }
 
 template <class Key, class Value>
-Node<Key, Value>* AvlTree<Key, Value>::findAux(Node<Key, Value>* parent, MovieByRate value) const{
-    if (parent->m_key == value.movieId ){
-        return parent;
-    }
-    int childType = checkWhichChild(parent, value);
-    if (childType == LEFT_CHILD){
-        return findAux(parent->m_left, value);
-    }
-    else if (childType == RIGHT_CHILD){
-        return findAux(parent->m_right, value);
-    }
-    return 0;
-}
-
-template <class Key, class Value>
 Node<Key, Value>* AvlTree<Key, Value>::find(Key key) const{
     if (!root){
         return 0;
@@ -301,48 +225,6 @@ Node<Key, Value>* AvlTree<Key, Value>::find(Key key) const{
         return this->root;
     }
     return findAux(this->root, key);
-}
-
-template <class Key, class Value>
-Node<Key, Value>* AvlTree<Key, Value>::find(MovieByRate value) const{
-    if (!root){
-        return 0;
-    }
-    if (root->m_key == value.movieId){
-        return this->root;
-    }
-    return findAux(this->root, value);
-}
-
-template <class Key, class Value>
-void AvlTree<Key, Value>::remove(MovieByRate value) {
-    Node<Key, Value>* node = find(value);
-    if (!node){
-        return;
-    }
-    m_size--;
-    if(!node->m_right || !node->m_left){
-        if(!node->m_right) {
-            removeAux(node, node->m_left);
-        }
-        else {
-            removeAux(node, node->m_right);
-        }
-        checkBalanceMistakes(node);
-    }
-    else {
-        Node<Key, Value>* temp = findNextNode(node);
-        if (node->m_key != temp->m_father->m_key) {
-            nodeNotParentRemove(node,temp);
-        }
-        removeAux(node, temp);
-        temp->m_left = node->m_left;
-        if (temp->m_left) {
-            temp->m_left->m_father = temp;
-        }
-        checkBalanceMistakes(temp);
-    }
-    delete(node);
 }
 
 

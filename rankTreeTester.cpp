@@ -16,9 +16,11 @@
 #include <random>
 #include <chrono>
 #include <algorithm>
-#include <memory>
 #include <assert.h>
-#include "StreamingDataBase/AvlTree.h"
+
+
+
+#include "AvlTree.h"
 
 /*
  * is_tree_valid - checks if the tree is valid, meaning that the tree is balanced and the rank is correct
