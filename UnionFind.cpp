@@ -5,11 +5,11 @@
 #include "UnionFind.h"
 
 
-UFNode* UnionFind::find(int recordId) {
+int UnionFind::find(int recordId) {
     //important!!!! i assume that when calling this function you already made sure that this id exists
     auto root= UFArray[recordId];
     if(root->m_father== nullptr){
-        return root;
+        return root->m_id;
     }
     auto currentNode=UFArray[recordId];
     while(root->m_father!= nullptr){
@@ -21,27 +21,29 @@ UFNode* UnionFind::find(int recordId) {
         currentNode=currentNode->m_father;
         temp->m_father=root;
     }
-    return root;
+    return root->m_id;
 
 }
 StatusType UnionFind::Union(int id1, int id2) {
     //important!!!! i assume that when calling this function you already made sure that this id exists
-    UFNode* root1= find(id1);
-    UFNode* root2= find(id2);
-    if (root1->m_id==root2->m_id){
+    int root1= find(id1);
+    int root2= find(id2);
+    if (root1==root2){
         return StatusType::FAILURE;
     }
-    if (root1->m_rank<=root2->m_rank){
-        root1->m_father=root2;
-        root2->m_rank+=root1->m_rank;
-        if (root2->m_rank==0){
-            root2->m_rank++;
+    auto rootNode1= UFArray[root1];
+    auto rootNode2= UFArray[root2];
+    if (rootNode1->m_rank<=rootNode2->m_rank){
+        rootNode1->m_father=rootNode2;
+        rootNode2->m_rank+=rootNode1->m_rank;
+        if (rootNode2->m_rank==0){
+            rootNode2->m_rank++;
         }
         return StatusType::SUCCESS;
     }
     else{
-        root2->m_father=root1;
-        root1->m_rank+=root2->m_rank;
+        rootNode2->m_father=rootNode1;
+        rootNode1->m_rank+=rootNode2->m_rank;
         return StatusType::SUCCESS;
     }
 }

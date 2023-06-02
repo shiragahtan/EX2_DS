@@ -23,7 +23,7 @@ public:
     UFNode* m_leaf;
     UFNode** UFArray;
 
-    UFNode* find(int recordId);
+    int find(int recordId);
     StatusType Union(int id1,int id2);
 
     UnionFind(UFNode** array): UFArray(array){};
