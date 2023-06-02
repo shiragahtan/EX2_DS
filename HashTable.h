@@ -11,7 +11,7 @@ class HashTable{
     int m_size;
     int numMembers;
     int factor;
-    AvlTree<int,Costumer> costumerArr; //an array that points to AVLTREE objects
+    AvlTree<int,Costumer> **costumerArr; //an array that points to AVLTREE objects
 
     int hashFunction(int key);
     void hashTableDoubling();
@@ -21,11 +21,17 @@ class HashTable{
 public:
     HashTable();
     ~HashTable();
-    void insertCostumer(Costumer *newCostumer);
+    void insertCostumer(Costumer newCostumer);
     void deleteCostumer(int key);
     Costumer search(int key);
 };
 
 static int START_SIZE = 50;
+
+int main(){
+    HashTable hash1;
+    Costumer costumer1(1,1);
+    hash1.insertCostumer(costumer1);
+}
 
 #endif //EX2_DS_STRUCTURES_H

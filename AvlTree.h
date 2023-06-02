@@ -2,6 +2,7 @@
 // Created by shira on 25/04/2023.
 //
 #include <iostream>
+#include "utilesWet2.h"
 
 #ifndef EX1_DS_AVLTREE_H
 #define EX1_DS_AVLTREE_H
@@ -74,7 +75,9 @@ static int LEFT_CHILD =1;
 static int RIGHT_CHILD =2;
 static int NOT_A_CHILD = 0;
 static int NO_DECISION = 0;
+/*
 static int ALLOCATION_ERROR = 3;
+ */
 
 template <class Key, class Value>
 AvlTree<Key, Value>:: ~AvlTree(){

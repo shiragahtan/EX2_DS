@@ -3,7 +3,6 @@
 
 #include "utilesWet2.h"
 #include "AvlTree.h"
-#include "HashTable.h"
 
 
 class clubMember;
