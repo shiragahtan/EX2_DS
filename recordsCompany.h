@@ -4,43 +4,12 @@
 #include "utilesWet2.h"
 #include "AvlTree.h"
 #include "UnionFind.h"
-
-
-class clubMember;
-class Costumer;
-class Record;
-
-class clubMember{
-public:
-    clubMember(int c_id, int treeSaleAmount, int selfSaleAmount);
-    int m_c_id;
-    int treeSaleAmount;
-    int selfSaleAmount;
-};
-
-
-class Costumer{
-public:
-    Costumer(int c_id, int phone);
-    int m_c_id;
-    int m_phoneNum;
-    clubMember* m_clubMember; //a ptr to his node in the tree
-};
-
-class Record{
-public:
-    Record(int r_id, int numCopies, int numOrders);
-    int m_r_id;
-    int m_numCopies;
-    int m_numPurchases;
-};
-
-
-
+#include "HashTable.h"
 
 class RecordsCompany {
   private:
     AvlTree<int,clubMember> membersTree;
+    HashTable membersHash;
 
 
   public:
