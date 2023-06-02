@@ -3,7 +3,6 @@
 
 #include "utilesWet2.h"
 #include "AvlTree.h"
-#include "Structures.h"
 #include "UnionFind.h"
 
 
@@ -43,7 +42,10 @@ class RecordsCompany {
   private:
     AvlTree<int,clubMember> membersTree;
 
+
   public:
+    UFNode** UFArray;
+    UnionFind* UF;
     RecordsCompany();
     ~RecordsCompany();
     StatusType newMonth(int *records_stocks, int number_of_records);
