@@ -10,7 +10,7 @@ StatusType RecordsCompany::addCostumer(int c_id, int phone) {
     if (c_id < 0 || phone < 0){
         return INVALID_INPUT;
     }
-    if (membersHash.searchIfExists(c_id) != DOESNT_EXIST){
+    if (membersHash.searchIfExists(c_id) != NOT_IN_HASH){
         return ALREADY_EXISTS;
     }
     Costumer newCostumer(c_id, phone);
@@ -25,8 +25,8 @@ Output_t<int> RecordsCompany::getPhone(int c_id){
         return INVALID_INPUT;
     }
     int searchAnswer = membersHash.searchIfExists(c_id);
-    if (searchAnswer == DOESNT_EXIST){
-        return Output_t<int>(DOESNT_EXIST);
+    if (searchAnswer == NOT_IN_HASH){
+        return Output_t<int>(DOESNT_EXISTS);
     }
     return Output_t<int>(searchAnswer);
 }
