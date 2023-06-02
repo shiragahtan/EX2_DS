@@ -13,7 +13,7 @@ class HashTable{
     int factor;
     AvlTree<int,Costumer> **costumerArr; //an array that points to AVLTREE objects
 
-    int hashFunction(int key);
+    int hashFunction(int key) const;
     void hashTableDoubling();
     void hashTableShrinking();
     void reHashing(int keyBefore);
@@ -22,8 +22,7 @@ public:
     HashTable();
     ~HashTable();
     void insertCostumer(Costumer newCostumer);
-    void deleteCostumer(int key);
-    Costumer search(int key);
+    Costumer search(int key) const;
 };
 
 static int START_SIZE = 50;

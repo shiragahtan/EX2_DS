@@ -26,7 +26,7 @@ HashTable::HashTable() :m_size(START_SIZE), numMembers(0), factor(0) {
 HashTable::~HashTable() {
     for (int i=0; i<m_size; i++){
         if (costumerArr[i] == nullptr){
-            ~(costumerArr[i]);
+            delete costumerArr[i];
         }
     }
     delete[] costumerArr;
@@ -34,7 +34,7 @@ HashTable::~HashTable() {
 
 void HashTable::insertCostumer(Costumer newCostumer) {
     numMembers++;
-    factor = numMembers/m_size;
+    factor = numMembers/(double)m_size;
     if (factor >= 1){
         hashTableDoubling();
     }
@@ -43,8 +43,14 @@ void HashTable::insertCostumer(Costumer newCostumer) {
         AvlTree<int,Costumer> *newAvl = new AvlTree<int,Costumer>();
         costumerArr[indexOfNew] = newAvl;
     }
-    costumerArr[indexOfNew].insert(newCostumer.m_c_id, newCostumer);
+    costumerArr[indexOfNew]->insert(newCostumer.m_c_id, newCostumer);
 }
 
 
+int HashTable::hashFunction(int key) const{
+    return (key % m_size);
+}
 
+Costumer HashTable::search(int key) const{
+
+}
