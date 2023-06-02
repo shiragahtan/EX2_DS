@@ -5,6 +5,7 @@
 #include "AvlTree.h"
 #include "UnionFind.h"
 
+class HashTable;
 
 class clubMember;
 class Costumer;
@@ -34,8 +35,6 @@ public:
     int m_numCopies;
     int m_numPurchases;
 };
-
-
 
 
 class RecordsCompany {

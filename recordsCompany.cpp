@@ -17,3 +17,7 @@ StatusType RecordsCompany::newMonth(int *records_stocks, int number_of_records) 
     }
 
 }*/
+
+RecordsCompany::RecordsCompany(){
+    HashTable recordsHash();
+}

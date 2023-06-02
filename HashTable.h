@@ -6,7 +6,6 @@
 #ifndef EX2_DS_STRUCTURES_H
 #define EX2_DS_STRUCTURES_H
 
-
 class HashTable{
     int m_size;
     int numMembers;
