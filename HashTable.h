@@ -22,7 +22,7 @@ class HashTable{
 public:
     HashTable();
     ~HashTable();
-    void insertCostumer(Costumer newCostumer);
+    StatusType_t insertCostumer(Costumer newCostumer);
     Costumer search(int key) const;
     int searchIfExists(int key) const;
 };
