@@ -2,6 +2,7 @@
 // Created by shira on 25/04/2023.
 //
 #include <iostream>
+#include "utilesWet2.h"
 
 #ifndef EX1_DS_AVLTREE_H
 #define EX1_DS_AVLTREE_H
@@ -74,7 +75,9 @@ static int LEFT_CHILD =1;
 static int RIGHT_CHILD =2;
 static int NOT_A_CHILD = 0;
 static int NO_DECISION = 0;
+/*
 static int ALLOCATION_ERROR = 3;
+ */
 
 template <class Key, class Value>
 AvlTree<Key, Value>:: ~AvlTree(){
@@ -138,14 +141,14 @@ int AvlTree<Key, Value>::getBalanceFactor(Node<Key, Value>* nodeToCheck) const{
 
 template <class Key, class Value>
 int AvlTree<Key, Value>::checkWhichDirection(Node<Key, Value>* parent, Node<Key, Value>* node){
-    if (node->m_info < parent->m_info){
+    if (node->m_key < parent->m_key){
         if (!parent->m_left){
             node->m_father = parent;
             parent->m_left = node;
             return LEFT_CHILD;
         }
     }
-    else if(node->m_info > parent->m_info){
+    else if(node->m_key > parent->m_key){
         if (!parent->m_right){
             node->m_father = parent;
             parent->m_right = node;
@@ -159,8 +162,8 @@ template <class Key, class Value>
 void AvlTree<Key, Value>::insertAux(Node<Key, Value>* parent, Node<Key, Value>* node){
     int direction = checkWhichDirection(parent, node);
     if (direction == LEFT_CHILD || direction == RIGHT_CHILD) return;
-    else if (direction == NO_DECISION && node->m_info < parent->m_info) insertAux(parent->m_left, node); // GOING LEFT
-    else if (direction == NO_DECISION && node->m_info > parent->m_info) insertAux(parent->m_right, node); // GOING RIGHT
+    else if (direction == NO_DECISION && node->m_key < parent->m_key) insertAux(parent->m_left, node); // GOING LEFT
+    else if (direction == NO_DECISION && node->m_key > parent->m_key) insertAux(parent->m_right, node); // GOING RIGHT
     checkBalanceMistakes(node);
 }
 
