@@ -60,6 +60,12 @@ int HashTable::searchIfExists(int key) const{
     return costumerNode->m_info.m_phoneNum;
 }
 
+void HashTable::makeMember(int key){
+    int indexOfMember = hashFunction(key);
+    costumerArr[indexOfMember]->find(key)->m_info.clubMember = true;
+}
+
+
 void HashTable::reHashing(int sizeBefore) {
     AvlTree<int,Costumer> **newCostumerArr = new AvlTree<int,Costumer> *[m_size];
     for (int i=0; i < m_size; i++){

@@ -26,6 +26,7 @@ public:
     HashTable();
     ~HashTable();
     StatusType_t insertCostumer(Costumer newCostumer);
+    void makeMember(int key);
     Costumer search(int key) const;
     int searchIfExists(int key) const;
 };

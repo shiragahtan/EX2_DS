@@ -64,7 +64,7 @@ StatusType RecordsCompany::makeMember(int c_id) {
     if (costumerToUpdate.clubMember){
         return ALREADY_EXISTS;
     }
-    costumerToUpdate.clubMember = true;
-    //TODO: add the member to the tree
+    membersHash.makeMember(c_id);
+    //TODO: add the member to the memberstree
     return SUCCESS;
 }
