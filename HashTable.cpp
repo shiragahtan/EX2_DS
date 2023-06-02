@@ -33,7 +33,7 @@ void HashTable::insertCostumer(Costumer newCostumer) {
         costumerArr[indexOfNew] = new AvlTree<int,Costumer>();
     }
     if (costumerArr[indexOfNew]->insert(newCostumer.m_c_id, newCostumer) == ALLOCATION_ERROR){
-
+        
     }
 }
 
