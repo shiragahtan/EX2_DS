@@ -21,7 +21,7 @@ RecordsCompany::~RecordsCompany() {};
 StatusType RecordsCompany::newMonth(int *records_stocks, int number_of_records) {
     auto UFArray= new UFNode*[number_of_records];
     for(int i=0;i<number_of_records;i++){
-        UFArray[i]=new UFNode(i);
+        UFArray[i]=new UFNode(i,records_stocks[i]);
         columnsArr[i]=i;
     }
     UF=new UnionFind(UFArray);
