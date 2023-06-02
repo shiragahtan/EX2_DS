@@ -4,6 +4,7 @@
 #include "utilesWet2.h"
 #include "AvlTree.h"
 #include "Structures.h"
+#include "UnionFind.h"
 
 
 class clubMember;
@@ -24,7 +25,7 @@ public:
     Costumer(int c_id, int phone);
     int m_c_id;
     int m_phoneNum;
-    *clubMember m_clubMember; //a ptr to his node in the tree
+    clubMember* m_clubMember; //a ptr to his node in the tree
 };
 
 class Record{
