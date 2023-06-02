@@ -21,8 +21,7 @@ HashTable::~HashTable() {
 }
 
 
-//TODO: CHECK THAT WHEN ADDING A NEW COSTUMER HE WAS'NT IN THE HASH ALREADY (in addcostumer function)
-void HashTable::insertCostumer(Costumer newCostumer) {
+StatusType_t HashTable::insertCostumer(Costumer newCostumer) {
     numMembers++;
     if (numMembers == m_size){ //check if the factor is 1
         hashTableDoubling();
@@ -33,8 +32,9 @@ void HashTable::insertCostumer(Costumer newCostumer) {
         costumerArr[indexOfNew] = new AvlTree<int,Costumer>();
     }
     if (costumerArr[indexOfNew]->insert(newCostumer.m_c_id, newCostumer) == ALLOCATION_ERROR){
-        
+        return ALLOCATION_ERROR;
     }
+    return SUCCESS;
 }
 
 
@@ -50,9 +50,12 @@ Costumer HashTable::search(int key) const{
 
 int HashTable::searchIfExists(int key) const{
     int indexOfMember = hashFunction(key);
+    if (costumerArr[indexOfMember] == nullptr){
+        return NOT_IN_HASH;
+    }
     Node<int,Costumer> *costumerNode = costumerArr[indexOfMember]->find(key);
     if (costumerNode == nullptr){
-        return DOESNT_EXIST;
+        return NOT_IN_HASH;
     }
     return costumerNode->m_info.m_phoneNum;
 }

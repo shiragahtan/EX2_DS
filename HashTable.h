@@ -10,6 +10,8 @@
 //class HashTable;
 
 class HashTable{
+
+public:
     int m_size;
     int numMembers;
     AvlTree<int,Costumer> **costumerArr; //an array that points to AVLTREE objects
@@ -19,16 +21,17 @@ class HashTable{
     void hashTableShrinking(); //TODO: CHECK IF NEEDED
     void reHashing(int sizeBefore);
 
-public:
+    //TODO: move to public all up
+
     HashTable();
     ~HashTable();
-    void insertCostumer(Costumer newCostumer);
+    StatusType_t insertCostumer(Costumer newCostumer);
     Costumer search(int key) const;
     int searchIfExists(int key) const;
 };
 
 static int START_SIZE = 2;
 static int EXPAND_RATE = 2;
-static int DOESNT_EXIST = -1;
+static int NOT_IN_HASH = -1;
 
 #endif //EX2_DS_STRUCTURES_H
