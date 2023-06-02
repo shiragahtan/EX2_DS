@@ -40,6 +40,16 @@ StatusType RecordsCompany::newMonth(int *records_stocks, int number_of_records) 
 UF=new UnionFind(UFArray);
 recordNum=number_of_records;
 
+Output_t<bool> RecordsCompany::isMember(int c_id){
+    if (c_id < 0){
+        return INVALID_INPUT;
+    }
+    int searchAnswer = membersHash.searchIfExists(c_id);
+    if (searchAnswer == NOT_IN_HASH){
+        return Output_t<bool>(DOESNT_EXISTS);
+    }
+    Costumer costumer = membersHash.search(c_id);
+    return Output_t<bool>(costumer.clubMember);
 }
 
 StatusType RecordsCompany::putOnTop(int r_id1, int r_id2) {
@@ -55,4 +65,7 @@ StatusType RecordsCompany::putOnTop(int r_id1, int r_id2) {
     }
     int root= UF->find(r_id1);
     columnsArr[root]=columnsArr[r_id2];
+    costumerToUpdate.clubMember = true;
+    //TODO: add the member to the tree
+    return SUCCESS;
 }
