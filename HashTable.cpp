@@ -29,9 +29,12 @@ void HashTable::insertCostumer(Costumer newCostumer) {
     }
     int indexOfNew = hashFunction(newCostumer.m_c_id);
     if (costumerArr[indexOfNew] == nullptr){
+        //TODO: ADD TRY CATCH
         costumerArr[indexOfNew] = new AvlTree<int,Costumer>();
     }
-    costumerArr[indexOfNew]->insert(newCostumer.m_c_id, newCostumer);
+    if (costumerArr[indexOfNew]->insert(newCostumer.m_c_id, newCostumer) == ALLOCATION_ERROR){
+
+    }
 }
 
 
@@ -43,6 +46,15 @@ Costumer HashTable::search(int key) const{
     int indexOfMember = hashFunction(key);
     Node<int,Costumer> *costumerNode = costumerArr[indexOfMember]->find(key);
     return costumerNode->m_info;
+}
+
+int HashTable::searchIfExists(int key) const{
+    int indexOfMember = hashFunction(key);
+    Node<int,Costumer> *costumerNode = costumerArr[indexOfMember]->find(key);
+    if (costumerNode == nullptr){
+        return DOESNT_EXIST;
+    }
+    return costumerNode->m_info.m_phoneNum;
 }
 
 void HashTable::reHashing(int sizeBefore) {

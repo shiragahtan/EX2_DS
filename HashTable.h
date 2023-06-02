@@ -24,9 +24,11 @@ public:
     ~HashTable();
     void insertCostumer(Costumer newCostumer);
     Costumer search(int key) const;
+    int searchIfExists(int key) const;
 };
 
 static int START_SIZE = 2;
 static int EXPAND_RATE = 2;
+static int DOESNT_EXIST = -1;
 
 #endif //EX2_DS_STRUCTURES_H
