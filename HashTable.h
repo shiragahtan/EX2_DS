@@ -33,13 +33,14 @@ int main(){
     Costumer costumer2(2,1);
     Costumer costumer3(3,1);
     Costumer costumer4(4,1);
-    Costumer costumer5(5,1);
+    Costumer costumer9(9,1);
 
     hash1.insertCostumer(costumer1);
     hash1.insertCostumer(costumer2);
     Costumer searching = hash1.search(2);
     hash1.insertCostumer(costumer3);
-
+    hash1.insertCostumer(costumer4);
+    hash1.insertCostumer(costumer9);
 }
 
 #endif //EX2_DS_STRUCTURES_H

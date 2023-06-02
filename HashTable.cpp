@@ -57,7 +57,7 @@ void HashTable::reHashing(int sizeBefore) {
             if (newCostumerArr[newIndex] == nullptr){
                 newCostumerArr[newIndex] = new AvlTree<int,Costumer>();
             }
-            newCostumerArr[newIndex]->insert(NodeToAdd->m_key, NodeToAdd->m_info); //TODO:should we create new tree?
+            newCostumerArr[newIndex]->insert(NodeToAdd->m_key, NodeToAdd->m_info);
             costumerArr[i]->remove(NodeToAdd->m_key);
         }
     }
