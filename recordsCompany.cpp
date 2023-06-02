@@ -32,12 +32,19 @@ Output_t<int> RecordsCompany::getPhone(int c_id){
 }
 
 StatusType RecordsCompany::newMonth(int *records_stocks, int number_of_records) {
-    auto UFArray= new UFNode*[number_of_records];
-    for(int i=0;i<number_of_records;i++){
-        UFArray[i]=new UFNode(i);
+    if (number_of_records<0){
+        return StatusType::INVALID_INPUT;
     }
-    UF=new UnionFind(UFArray);
-    //TODO: to update about money of members in AVLTREE
+    auto UFArray = new UFNode *[number_of_records];
+    for (int i = 0; i < number_of_records; i++) {
+        UFArray[i] = new UFNode(i, records_stocks[i]);
+        columnsArr[i] = i;
+    }
+    UF = new UnionFind(UFArray);
+    recordNum = number_of_records;
+
+    return StatusType::SUCCESS;
+
 }
 
 Output_t<bool> RecordsCompany::isMember(int c_id){
@@ -51,6 +58,8 @@ Output_t<bool> RecordsCompany::isMember(int c_id){
     Costumer costumer = membersHash.search(c_id);
     return Output_t<bool>(costumer.clubMember);
 }
+
+
 
 StatusType RecordsCompany::makeMember(int c_id) {
     if (c_id < 0){
@@ -67,4 +76,40 @@ StatusType RecordsCompany::makeMember(int c_id) {
     membersHash.makeMember(c_id);
     //TODO: add the member to the memberstree
     return SUCCESS;
+}
+
+
+StatusType RecordsCompany::putOnTop(int r_id1, int r_id2) {
+    if (r_id1 < 0 || r_id2 < 0) {
+        return StatusType::INVALID_INPUT;
+    }
+    if (r_id1 >= recordNum || r_id2 >= recordNum) {
+        return StatusType::DOESNT_EXISTS;
+    }
+    if (UF->Union(r_id1, r_id2) == StatusType::FAILURE) {
+        return StatusType::FAILURE;
+    }
+    int root = UF->find(r_id1);
+    columnsArr[root] = columnsArr[r_id2];
+
+    return SUCCESS;
+}
+
+StatusType RecordsCompany::getPlace(int r_id, int *column, int *hight) {
+    if(r_id<0 || column==NULL || hight==NULL){ //TODO: NULL or nullptr?
+        return StatusType::INVALID_INPUT;
+    }
+    if (r_id>=recordNum){
+        return StatusType::DOESNT_EXISTS;
+    }
+
+        auto currentNode=UF->UFArray[r_id];
+
+        int sum=0;
+        while(currentNode->m_father!= nullptr){
+            sum+=currentNode->m_r;
+            currentNode=currentNode->m_father;
+        }
+    *hight=sum;
+    *column=columnsArr[currentNode->m_id];
 }

@@ -16,8 +16,11 @@ class RecordsCompany {
 
     //TODO: MAKE PUBLIC
 
+  public:
+    int* columnsArr;
     UFNode** UFArray;
     UnionFind* UF;
+    int recordNum;
     RecordsCompany();
     //~RecordsCompany(); //TODO:IMLEMENT
     StatusType newMonth(int *records_stocks, int number_of_records);

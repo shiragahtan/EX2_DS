@@ -11,11 +11,11 @@ public:
     int m_id;
     UFNode* m_father;
     int m_rank;
-    int m_toSubtract;
+    int m_r;
     int m_height;
 
     //UFNode() {};
-    explicit UFNode(int id):m_id(id),m_father(nullptr),m_rank(0),m_toSubtract(0),m_height(0){};
+    explicit UFNode(int id, int height):m_id(id),m_father(nullptr),m_rank(0),m_r(0),m_height(height){};
 };
 
 class UnionFind{
@@ -27,6 +27,9 @@ public:
     StatusType Union(int id1,int id2);
 
     UnionFind(UFNode** array): UFArray(array){};
+
+private:
+  int topRecHigh(int recordId);
 };
 
 
