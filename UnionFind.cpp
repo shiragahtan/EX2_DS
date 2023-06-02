@@ -2,6 +2,7 @@
 // Created by Omer Oz on 02/06/2023.
 //
 
+#include <cassert>
 #include "UnionFind.h"
 
 
@@ -20,6 +21,7 @@ int UnionFind::find(int recordId) {
         temp=currentNode;
         currentNode=currentNode->m_father;
         temp->m_father=root;
+        assert(currentNode->m_father!= nullptr);
     }
     return root->m_id;
 
@@ -36,7 +38,7 @@ StatusType UnionFind::Union(int id1, int id2) {
     if (rootNode1->m_rank<=rootNode2->m_rank){
         rootNode1->m_father=rootNode2;
         rootNode2->m_rank+=rootNode1->m_rank;
-        if (rootNode2->m_rank==0){
+        if (rootNode1->m_rank==0){
             rootNode2->m_rank++;
         }
         return StatusType::SUCCESS;
@@ -44,6 +46,9 @@ StatusType UnionFind::Union(int id1, int id2) {
     else{
         rootNode2->m_father=rootNode1;
         rootNode1->m_rank+=rootNode2->m_rank;
+        if (rootNode2->m_rank==0){
+            rootNode1->m_rank++;
+        }
         return StatusType::SUCCESS;
     }
 }

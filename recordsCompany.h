@@ -13,8 +13,10 @@ class RecordsCompany {
 
 
   public:
+    int* columnsArr;
     UFNode** UFArray;
     UnionFind* UF;
+    int recordNum;
     RecordsCompany();
     ~RecordsCompany();
     StatusType newMonth(int *records_stocks, int number_of_records);
