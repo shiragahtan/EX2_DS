@@ -13,7 +13,7 @@ class RecordsCompany {
     AvlTree<int,clubMember> membersTree;
     HashTable membersHash;
 
-    StatusType addToMembersTree(Costumer costumerToAdd);
+    StatusType addToMembersTree(int c_id);
     StatusType addPrizeUntil(int c_id,double  amount);
 
     //TODO: MAKE PRIVATE

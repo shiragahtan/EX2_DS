@@ -31,6 +31,11 @@ Output_t<int> RecordsCompany::getPhone(int c_id){
     return Output_t<int>(searchAnswer);
 }
 
+Output_t<double> getExpenses(int c_id){
+
+}
+
+
 StatusType RecordsCompany::newMonth(int *records_stocks, int number_of_records) {
     if (number_of_records<0){
         return StatusType::INVALID_INPUT;
@@ -100,10 +105,16 @@ Output_t<bool> RecordsCompany::isMember(int c_id){
     return Output_t<bool>(costumer.clubMember);
 }
 
-/*
-StatusType RecordsCompany::addToMembersTree(Costumer costumerToAdd){
+Output_t<double> RecordsCompany::getExpenses(int c_id){
+    if (c_id < 0){
+        return INVALID_INPUT;
+    }
+    if (membersTree.find(c_id) == 0){
+        return Output_t<double>(DOESNT_EXISTS);
+    }
+    return Output_t<double>(membersTree.AvlTree<int, clubMember>::getExpensesOfCostumer(c_id));
+}
 
-}*/
 
 StatusType RecordsCompany::makeMember(int c_id) {
     if (c_id < 0){
@@ -118,6 +129,7 @@ StatusType RecordsCompany::makeMember(int c_id) {
         return ALREADY_EXISTS; //he is already a member
     }
     membersHash.makeMember(c_id); //update hash
-    //TODO: add the member to the memberstree
+    clubMember newClubMember(c_id, 0, 0);
+    membersTree.insert(newClubMember);
     return SUCCESS;
 }
