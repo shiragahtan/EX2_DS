@@ -13,6 +13,8 @@ class RecordsCompany {
     AvlTree<int,clubMember> membersTree;
     HashTable membersHash;
 
+    StatusType addToMembersTree(Costumer costumerToAdd);
+
     //TODO: MAKE PRIVATE
 
     int* columnsArr;

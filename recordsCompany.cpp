@@ -60,6 +60,10 @@ Output_t<bool> RecordsCompany::isMember(int c_id){
 }
 
 
+StatusType RecordsCompany::addToMembersTree(Costumer costumerToAdd){
+
+}
+
 StatusType RecordsCompany::makeMember(int c_id) {
     if (c_id < 0){
         return INVALID_INPUT;
