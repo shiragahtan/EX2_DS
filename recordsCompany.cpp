@@ -4,7 +4,12 @@
 
 #include "recordsCompany.h"
 
-RecordsCompany::RecordsCompany() : membersTree() , membersHash(), numberOfPurchases(nullptr){};
+RecordsCompany::RecordsCompany() : membersTree() , membersHash(),numberOfPurchases(nullptr){};//TODO: update with new fields
+
+RecordsCompany:: ~RecordsCompany(){
+    delete[] columnsArr;
+    delete UF;
+}
 
 StatusType RecordsCompany::addCostumer(int c_id, int phone) {
     if (c_id < 0 || phone < 0){
@@ -43,24 +48,24 @@ StatusType RecordsCompany::newMonth(int *records_stocks, int number_of_records) 
         columnsArr[i] = i;
         numberOfPurchases[i] =0;
     }
-    UF = new UnionFind(UFArray);
+    UF = new UnionFind(UFArray,number_of_records);
     recordNum = number_of_records;
     return StatusType::SUCCESS;
     //TODO: TO UPDATE ALL THE VALUES OF THE COSTUMERS TO 0
 }
 
-StatusType RecordsCompany::buyRecord(int c_id, int r_id){
+StatusType RecordsCompany::buyRecord(int c_id, int r_id) {
     if (c_id < 0 || c_id < 0) {
         return StatusType::INVALID_INPUT;
     }
-    if (membersHash.searchIfExists(c_id) == NOT_IN_HASH || r_id >= recordNum){
+    if (membersHash.searchIfExists(c_id) == NOT_IN_HASH || r_id >= recordNum) {
         return StatusType::DOESNT_EXISTS;
     }
-    if (membersHash.search(c_id).clubMember){
-        membersTree.find(c_id)->m_info.selfSaleAmount+= (100 +numberOfPurchases[r_id]);
+    if (membersHash.search(c_id).clubMember) {
+        membersTree.find(c_id)->m_info.selfSaleAmount += (100 + numberOfPurchases[r_id]);
     }
     numberOfPurchases[r_id]++;
-    return(StatusType::SUCCESS);
+    return (StatusType::SUCCESS);
 }
 
 StatusType RecordsCompany::putOnTop(int r_id1, int r_id2) {
@@ -140,4 +145,8 @@ StatusType RecordsCompany::makeMember(int c_id) {
     clubMember newClubMember(c_id, 0, 0);
     membersTree.insert(newClubMember);
     return SUCCESS;
+}
+
+StatusType RecordsCompany::addPrize(int c_id1, int c_id2, double amount) {
+
 }
