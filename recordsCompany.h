@@ -9,20 +9,18 @@
 class RecordsCompany {
   private:
 
-
   public:
     AvlTree<int,clubMember> membersTree;
     HashTable membersHash;
 
-    //TODO: MAKE PUBLIC
+    //TODO: MAKE PRIVATE
 
-  public:
     int* columnsArr;
     UFNode** UFArray;
     UnionFind* UF;
     int recordNum;
     RecordsCompany();
-    //~RecordsCompany(); //TODO:IMLEMENT
+    //~RecordsCompany(); //TODO:IMPLEMENT
     StatusType newMonth(int *records_stocks, int number_of_records);
     StatusType addCostumer(int c_id, int phone);
     Output_t<int> getPhone(int c_id);

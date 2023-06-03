@@ -24,7 +24,7 @@ Output_t<int> RecordsCompany::getPhone(int c_id){
     if (c_id < 0){
         return INVALID_INPUT;
     }
-    int searchAnswer = membersHash.searchIfExists(c_id);
+    int searchAnswer = membersHash.searchIfExists(c_id); //searchAnswer has the phone number of the costumer
     if (searchAnswer == NOT_IN_HASH){
         return Output_t<int>(DOESNT_EXISTS);
     }
@@ -55,10 +55,9 @@ Output_t<bool> RecordsCompany::isMember(int c_id){
     if (searchAnswer == NOT_IN_HASH){
         return Output_t<bool>(DOESNT_EXISTS);
     }
-    Costumer costumer = membersHash.search(c_id);
+    Costumer costumer = membersHash.search(c_id); //we know that the costumer is in the hash
     return Output_t<bool>(costumer.clubMember);
 }
-
 
 
 StatusType RecordsCompany::makeMember(int c_id) {
@@ -69,16 +68,16 @@ StatusType RecordsCompany::makeMember(int c_id) {
     if (searchAnswer == NOT_IN_HASH){
         return DOESNT_EXISTS;
     }
-    Costumer costumerToUpdate = membersHash.search(c_id);
+    Costumer costumerToUpdate = membersHash.search(c_id); //we know that the costumer is in the hash
     if (costumerToUpdate.clubMember){
-        return ALREADY_EXISTS;
+        return ALREADY_EXISTS; //he is already a member
     }
-    membersHash.makeMember(c_id);
+    membersHash.makeMember(c_id); //update hash
     //TODO: add the member to the memberstree
     return SUCCESS;
 }
 
-
+/*
 StatusType RecordsCompany::putOnTop(int r_id1, int r_id2) {
     if (r_id1 < 0 || r_id2 < 0) {
         return StatusType::INVALID_INPUT;
@@ -94,6 +93,8 @@ StatusType RecordsCompany::putOnTop(int r_id1, int r_id2) {
 
     return SUCCESS;
 }
+
+*/
 
 StatusType RecordsCompany::getPlace(int r_id, int *column, int *hight) {
     if(r_id<0 || column==NULL || hight==NULL){ //TODO: NULL or nullptr?
