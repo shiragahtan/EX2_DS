@@ -47,24 +47,25 @@ StatusType RecordsCompany::newMonth(int *records_stocks, int number_of_records) 
     return StatusType::SUCCESS;
 
 }
+
 /*
-    StatusType RecordsCompany::putOnTop(int r_id1, int r_id2) {
-        if (r_id1 < 0 || r_id2 < 0) {
-            return StatusType::INVALID_INPUT;
-        }
-        if (r_id1 >= recordNum || r_id2 >= recordNum) {
-            return StatusType::DOESNT_EXISTS;
-        }
-        if (UF->Union(r_id1, r_id2) == StatusType::FAILURE) {
-            return StatusType::FAILURE;
-        }
-        int root = UF->find(r_id1);
-        UF->columnsArr[root] = UF->columnsArr[r_id2];
-
-        return SUCCESS;
+StatusType RecordsCompany::putOnTop(int r_id1, int r_id2) {
+    if (r_id1 < 0 || r_id2 < 0) {
+        return StatusType::INVALID_INPUT;
     }
+    if (r_id1 >= recordNum || r_id2 >= recordNum) {
+        return StatusType::DOESNT_EXISTS;
+    }
+    if (UF->Union(r_id1, r_id2) == StatusType::FAILURE) {
+        return StatusType::FAILURE;
+    }
+    int root = UF->find(r_id1);
+    UF->columnsArr[root] = UF->columnsArr[r_id2];
 
-    StatusType RecordsCompany::getPlace(int r_id, int *column, int *hight) {
+    return SUCCESS;
+}
+
+StatusType RecordsCompany::getPlace(int r_id, int *column, int *hight) {
     if(r_id<0 || column== nullptr || hight== nullptr){ //TODO: make sure it catches nullptrs
         return StatusType::INVALID_INPUT;
     }

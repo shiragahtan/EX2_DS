@@ -8,5 +8,5 @@ Costumer::Costumer(int c_id, int phone) : m_c_id(c_id), m_phoneNum(phone), clubM
 
 Record::Record(int r_id, int numCopies, int numPurchases) : m_r_id(r_id), m_numCopies(numCopies), m_numPurchases(numPurchases) {};
 
-clubMember::clubMember(int c_id, double treeSaleAmount, double selfSaleAmount) : m_c_id(c_id), treeSaleAmount(0), selfSaleAmount(selfSaleAmount){};
+clubMember::clubMember(int c_id, double treeSaleAmount, double selfSaleAmount) : m_c_id(c_id), treeSaleAmount(treeSaleAmount), selfSaleAmount(selfSaleAmount){};
 //TODO: CHECK HOW TO UPDATE THE VALUES

@@ -167,7 +167,10 @@ int AvlTree<Key, Value>::checkWhichDirection(Node<Key, Value>* parent, Node<Key,
 template <class Key, class Value>
 void AvlTree<Key, Value>::insertAuxMember(Node<Key, Value>* parent, Node<Key, Value>* node, double selfSaleAmount){
     int direction = checkWhichDirection(parent, node);
-    if (direction == LEFT_CHILD || direction == RIGHT_CHILD) return;
+    if (direction == LEFT_CHILD || direction == RIGHT_CHILD) {
+        node->m_info.selfSaleAmount += selfSaleAmount + parent->m_info.treeSaleAmount;
+        return;
+    }
     else if (direction == NO_DECISION && node->m_key < parent->m_key) insertAuxMember(parent->m_left, node, selfSaleAmount+= parent->m_info.treeSaleAmount); // GOING LEFT
     else if (direction == NO_DECISION && node->m_key > parent->m_key) insertAuxMember(parent->m_right, node,selfSaleAmount+= parent->m_info.treeSaleAmount); // GOING RIGHT
     checkBalanceMistakes(node);
