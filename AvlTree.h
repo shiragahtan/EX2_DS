@@ -72,6 +72,7 @@ public:
     ~AvlTree();
     void deleteTree();
     void inorderOpposite(int* arr) const;
+    int findKeyOnRight(int key);
 
 };
 
@@ -226,6 +227,43 @@ int AvlTree<Key, Value>::insert(clubMember memberToAdd){
     //newNode->m_info.selfSaleAmount *= (-1);
     return SUCCEED;
 }
+
+template <class Key, class Value>
+int AvlTree<Key, Value>::findKeyOnRight(int key) {
+    auto currentNode=root;
+    bool found=false;
+    while(!found){
+        if (currentNode->m_key<key){
+            if (!currentNode->m_right){
+                found= true;
+            }
+            else{
+                if (currentNode->m_right>key){
+                    found= true;
+                }
+                else{
+                    currentNode=currentNode->m_right;
+                }
+            }
+        }
+        else if (currentNode->m_key>key)
+        {
+            if (!currentNode->m_left){
+                found=true;
+            }
+            else{
+                currentNode=currentNode->m_left;
+            }
+
+        }
+        else{
+            found= true;
+        }
+    }
+    return currentNode->m_key;
+}
+
+
 
 //-------------------------------------------------------------
 
