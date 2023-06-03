@@ -112,12 +112,16 @@ Output_t<bool> RecordsCompany::isMember(int c_id){
 
 Output_t<double> RecordsCompany::getExpenses(int c_id){
     if (c_id < 0){
-        return INVALID_INPUT;
+        return Output_t<double>(INVALID_INPUT);
     }
     if (membersTree.find(c_id) == 0){
         return Output_t<double>(DOESNT_EXISTS);
     }
     return Output_t<double>(membersTree.AvlTree<int, clubMember>::getExpensesOfCostumer(c_id));
+}
+
+StatusType buyRecord(int c_id, int r_id){
+
 }
 
 
