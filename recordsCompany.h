@@ -20,7 +20,7 @@ class RecordsCompany {
     //TODO: MAKE PRIVATE
 
   public:
-    //int* columnsArr;
+    int* columnsArr;
     //UFNode** UFArray;
     UnionFind* UF;
     int recordNum;

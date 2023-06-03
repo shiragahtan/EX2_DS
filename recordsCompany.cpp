@@ -41,19 +41,19 @@ StatusType RecordsCompany::newMonth(int *records_stocks, int number_of_records) 
         return StatusType::INVALID_INPUT;
     }
     auto UFArray = new UFNode *[number_of_records];
-    auto columnsArr= new int [number_of_records];
+    columnsArr= new int [number_of_records];
     for (int i = 0; i < number_of_records; i++) {
         UFArray[i] = new UFNode(i, records_stocks[i]);
         columnsArr[i] = i;
     }
-    UF = new UnionFind(UFArray, columnsArr);
+    UF = new UnionFind(UFArray);
     recordNum = number_of_records;
 
     return StatusType::SUCCESS;
 
 }
 
-/*
+
 StatusType RecordsCompany::putOnTop(int r_id1, int r_id2) {
     if (r_id1 < 0 || r_id2 < 0) {
         return StatusType::INVALID_INPUT;
@@ -61,11 +61,13 @@ StatusType RecordsCompany::putOnTop(int r_id1, int r_id2) {
     if (r_id1 >= recordNum || r_id2 >= recordNum) {
         return StatusType::DOESNT_EXISTS;
     }
+    int root1 = UF->find(r_id1);
+    int root2 = UF->find(r_id2);
     if (UF->Union(r_id1, r_id2) == StatusType::FAILURE) {
         return StatusType::FAILURE;
     }
-    int root = UF->find(r_id1);
-    UF->columnsArr[root] = UF->columnsArr[r_id2];
+
+    columnsArr[root1] = columnsArr[root2];
 
     return SUCCESS;
 }
@@ -87,9 +89,10 @@ StatusType RecordsCompany::getPlace(int r_id, int *column, int *hight) {
         }
         sum+=currentNode->m_r;
         *hight=sum;
-        *column=UF->columnsArr[currentNode->m_id];
+        *column=columnsArr[currentNode->m_id];
+    return StatusType ::SUCCESS;
 }
-*/
+
 Output_t<bool> RecordsCompany::isMember(int c_id){
     if (c_id < 0){
         return INVALID_INPUT;
