@@ -3,6 +3,7 @@
 //
 #include <iostream>
 #include "utilesWet2.h"
+#include "Classes.h"
 
 #ifndef EX1_DS_AVLTREE_H
 #define EX1_DS_AVLTREE_H
@@ -34,6 +35,7 @@ private:
     Node<Key, Value>* leftRightRotate(Node<Key, Value>* node);
     Node<Key, Value>* rightLeftRotate(Node<Key, Value>* node);
     void insertAux(Node<Key, Value>* parent, Node<Key, Value>* node);
+    void insertAuxMember(Node<Key, Value>* parent, Node<Key, Value>* node, double selfSaleAmount);
     int inorderAux(Node<Key, Value>* node, int* arr, int count=0) const;
     int inorderOppositeAux(Node<Key, Value>* node, int* arr, int count=0) const;
     Node<Key, Value>* findAux(Node<Key, Value>* parent, Key key) const;
@@ -61,6 +63,7 @@ public:
     Node<Key, Value>* find(Key key) const;
     void remove(Key key);
     int insert(Key key, Value info);
+    int insert(clubMember memberToAdd);
     void inorder(int* arr) const;
     void deleteTree(Node<Key, Value>* node);
     Node<Key, Value>* getMax();
@@ -157,6 +160,43 @@ int AvlTree<Key, Value>::checkWhichDirection(Node<Key, Value>* parent, Node<Key,
     }
     return NO_DECISION;
 }
+
+
+//TODO: added for membersTree
+
+template <class Key, class Value>
+void AvlTree<Key, Value>::insertAuxMember(Node<Key, Value>* parent, Node<Key, Value>* node, double selfSaleAmount){
+    int direction = checkWhichDirection(parent, node);
+    if (direction == LEFT_CHILD || direction == RIGHT_CHILD) return;
+    else if (direction == NO_DECISION && node->m_key < parent->m_key) insertAuxMember(parent->m_left, node, selfSaleAmount+= parent->m_info.treeSaleAmount); // GOING LEFT
+    else if (direction == NO_DECISION && node->m_key > parent->m_key) insertAuxMember(parent->m_right, node,selfSaleAmount+= parent->m_info.treeSaleAmount); // GOING RIGHT
+    checkBalanceMistakes(node);
+}
+
+template <class Key, class Value>
+int AvlTree<Key, Value>::insert(clubMember memberToAdd){
+    if (!this->root){
+        try {
+            auto node1 = new Node<Key, Value>(memberToAdd.m_c_id, memberToAdd);
+            root = node1;
+            m_size++;
+            return SUCCEED;
+        }
+        catch (std::exception &exe){
+            return ALLOCATION_ERROR;
+        }
+    }
+    if ((this->find(memberToAdd.m_c_id) != nullptr)){
+        return FAILED;
+    }
+    m_size++;
+    auto newNode = new Node<Key, Value>(memberToAdd.m_c_id, memberToAdd);
+    insertAuxMember(this->root,newNode, 0);
+    newNode->m_info.selfSaleAmount *= (-1);
+    return SUCCEED;
+}
+
+//-------------------------------------------------------------
 
 template <class Key, class Value>
 void AvlTree<Key, Value>::insertAux(Node<Key, Value>* parent, Node<Key, Value>* node){

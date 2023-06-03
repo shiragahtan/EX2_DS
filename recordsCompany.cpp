@@ -47,7 +47,7 @@ StatusType RecordsCompany::newMonth(int *records_stocks, int number_of_records) 
     return StatusType::SUCCESS;
 
 }
-
+/*
     StatusType RecordsCompany::putOnTop(int r_id1, int r_id2) {
         if (r_id1 < 0 || r_id2 < 0) {
             return StatusType::INVALID_INPUT;
@@ -82,12 +82,8 @@ StatusType RecordsCompany::newMonth(int *records_stocks, int number_of_records) 
         sum+=currentNode->m_r;
         *hight=sum;
         *column=UF->columnsArr[currentNode->m_id];
-
-
-
-
 }
-
+*/
 Output_t<bool> RecordsCompany::isMember(int c_id){
     if (c_id < 0){
         return INVALID_INPUT;

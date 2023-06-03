@@ -14,6 +14,7 @@ class RecordsCompany {
     HashTable membersHash;
 
     StatusType addToMembersTree(Costumer costumerToAdd);
+    StatusType addPrizeUntil(int c_id1,double  amount);
 
     //TODO: MAKE PRIVATE
 
