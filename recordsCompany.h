@@ -24,6 +24,7 @@ class RecordsCompany {
     //UFNode** UFArray;
     UnionFind* UF;
     int recordNum;
+    int* numberOfPurchases;
     RecordsCompany();
     //~RecordsCompany(); //TODO:IMPLEMENT
     StatusType newMonth(int *records_stocks, int number_of_records);

@@ -4,7 +4,7 @@
 
 #include "recordsCompany.h"
 
-RecordsCompany::RecordsCompany() : membersTree() , membersHash(){};
+RecordsCompany::RecordsCompany() : membersTree() , membersHash(), numberOfPurchases(nullptr){};
 
 StatusType RecordsCompany::addCostumer(int c_id, int phone) {
     if (c_id < 0 || phone < 0){
@@ -31,28 +31,37 @@ Output_t<int> RecordsCompany::getPhone(int c_id){
     return Output_t<int>(searchAnswer);
 }
 
-Output_t<double> getExpenses(int c_id){
-
-}
-
-
 StatusType RecordsCompany::newMonth(int *records_stocks, int number_of_records) {
     if (number_of_records<0){
         return StatusType::INVALID_INPUT;
     }
     auto UFArray = new UFNode *[number_of_records];
     columnsArr= new int [number_of_records];
+    numberOfPurchases = new int[number_of_records]; //TODO: TRY CATCH EXCEPTION
     for (int i = 0; i < number_of_records; i++) {
         UFArray[i] = new UFNode(i, records_stocks[i]);
         columnsArr[i] = i;
+        numberOfPurchases[i] =0;
     }
     UF = new UnionFind(UFArray);
     recordNum = number_of_records;
-
     return StatusType::SUCCESS;
-
+    //TODO: TO UPDATE ALL THE VALUES OF THE COSTUMERS TO 0
 }
 
+StatusType RecordsCompany::buyRecord(int c_id, int r_id){
+    if (c_id < 0 || c_id < 0) {
+        return StatusType::INVALID_INPUT;
+    }
+    if (membersHash.searchIfExists(c_id) == NOT_IN_HASH || r_id >= recordNum){
+        return StatusType::DOESNT_EXISTS;
+    }
+    if (membersHash.search(c_id).clubMember){
+        membersTree.find(c_id)->m_info.selfSaleAmount+= (100 +numberOfPurchases[r_id]);
+    }
+    numberOfPurchases[r_id]++;
+    return(StatusType::SUCCESS);
+}
 
 StatusType RecordsCompany::putOnTop(int r_id1, int r_id2) {
     if (r_id1 < 0 || r_id2 < 0) {
@@ -114,11 +123,6 @@ Output_t<double> RecordsCompany::getExpenses(int c_id){
     }
     return Output_t<double>(membersTree.AvlTree<int, clubMember>::getExpensesOfCostumer(c_id));
 }
-
-StatusType buyRecord(int c_id, int r_id){
-
-}
-
 
 StatusType RecordsCompany::makeMember(int c_id) {
     if (c_id < 0){

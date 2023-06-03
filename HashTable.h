@@ -18,10 +18,9 @@ public:
 
     int hashFunction(int key) const;
     void hashTableDoubling();
-    void hashTableShrinking(); //TODO: CHECK IF NEEDED
     void reHashing(int sizeBefore);
 
-    //TODO: move to public all up
+    //TODO: move to private all up
 
     HashTable();
     ~HashTable();

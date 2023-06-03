@@ -165,6 +165,8 @@ int AvlTree<Key, Value>::checkWhichDirection(Node<Key, Value>* parent, Node<Key,
 }
 
 //----------------------------------
+//TODO: added for membersTree
+
 template <class Key, class Value>
 double AvlTree<Key, Value>::getExpensesOfCostumerAux(Node<Key, Value>* parent, Key key, double expenses) const{
     if (parent->m_key == key ){
@@ -190,13 +192,11 @@ double AvlTree<Key, Value>::getExpensesOfCostumer(int c_id) const{
     return getExpensesOfCostumerAux(this->root, c_id, expenses);
 }
 
-//TODO: added for membersTree
-
 template <class Key, class Value>
 void AvlTree<Key, Value>::insertAuxMember(Node<Key, Value>* parent, Node<Key, Value>* node, double selfSaleAmount){
     int direction = checkWhichDirection(parent, node);
     if (direction == LEFT_CHILD || direction == RIGHT_CHILD) {
-        node->m_info.selfSaleAmount -= selfSaleAmount + parent->m_info.treeSaleAmount;
+        node->m_info.selfSaleAmount -= (selfSaleAmount + parent->m_info.treeSaleAmount);
         return;
     }
     else if (direction == NO_DECISION && node->m_key < parent->m_key) insertAuxMember(parent->m_left, node, selfSaleAmount+= parent->m_info.treeSaleAmount); // GOING LEFT
