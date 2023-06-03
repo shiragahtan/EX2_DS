@@ -24,23 +24,11 @@ Output_t<int> RecordsCompany::getPhone(int c_id){
     if (c_id < 0){
         return INVALID_INPUT;
     }
-    int searchAnswer = membersHash.searchIfExists(c_id);
+    int searchAnswer = membersHash.searchIfExists(c_id); //searchAnswer has the phone number of the costumer
     if (searchAnswer == NOT_IN_HASH){
         return Output_t<int>(DOESNT_EXISTS);
     }
     return Output_t<int>(searchAnswer);
-}
-
-Output_t<bool> RecordsCompany::isMember(int c_id) {
-    if (c_id < 0) {
-        return INVALID_INPUT;
-    }
-    int searchAnswer = membersHash.searchIfExists(c_id);
-    if (searchAnswer == NOT_IN_HASH) {
-        return Output_t<bool>(DOESNT_EXISTS);
-    }
-    Costumer costumer = membersHash.search(c_id);
-    return Output_t<bool>(costumer.clubMember);
 }
 
 StatusType RecordsCompany::newMonth(int *records_stocks, int number_of_records) {
@@ -100,3 +88,36 @@ StatusType RecordsCompany::newMonth(int *records_stocks, int number_of_records) 
 
 }
 
+Output_t<bool> RecordsCompany::isMember(int c_id){
+    if (c_id < 0){
+        return INVALID_INPUT;
+    }
+    int searchAnswer = membersHash.searchIfExists(c_id);
+    if (searchAnswer == NOT_IN_HASH){
+        return Output_t<bool>(DOESNT_EXISTS);
+    }
+    Costumer costumer = membersHash.search(c_id); //we know that the costumer is in the hash
+    return Output_t<bool>(costumer.clubMember);
+}
+
+
+StatusType RecordsCompany::addToMembersTree(Costumer costumerToAdd){
+
+}
+
+StatusType RecordsCompany::makeMember(int c_id) {
+    if (c_id < 0){
+        return INVALID_INPUT;
+    }
+    int searchAnswer = membersHash.searchIfExists(c_id);
+    if (searchAnswer == NOT_IN_HASH){
+        return DOESNT_EXISTS;
+    }
+    Costumer costumerToUpdate = membersHash.search(c_id); //we know that the costumer is in the hash
+    if (costumerToUpdate.clubMember){
+        return ALREADY_EXISTS; //he is already a member
+    }
+    membersHash.makeMember(c_id); //update hash
+    //TODO: add the member to the memberstree
+    return SUCCESS;
+}

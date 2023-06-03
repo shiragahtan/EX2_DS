@@ -9,12 +9,14 @@
 class RecordsCompany {
   private:
 
-
   public:
     AvlTree<int,clubMember> membersTree;
     HashTable membersHash;
 
-    //TODO: MAKE PUBLIC
+    StatusType addToMembersTree(Costumer costumerToAdd);
+
+    //TODO: MAKE PRIVATE
+
 
   public:
     //int* columnsArr;
@@ -22,7 +24,7 @@ class RecordsCompany {
     UnionFind* UF;
     int recordNum;
     RecordsCompany();
-    //~RecordsCompany(); //TODO:IMLEMENT
+    //~RecordsCompany(); //TODO:IMPLEMENT
     StatusType newMonth(int *records_stocks, int number_of_records);
     StatusType addCostumer(int c_id, int phone);
     Output_t<int> getPhone(int c_id);
