@@ -4,7 +4,7 @@
 
 #include "recordsCompany.h"
 
-RecordsCompany::RecordsCompany() : membersTree() , membersHash(){};
+RecordsCompany::RecordsCompany() : membersTree() , membersHash(){};//TODO: update with new fields
 
 RecordsCompany:: ~RecordsCompany(){
     delete[] columnsArr;
@@ -141,4 +141,8 @@ StatusType RecordsCompany::makeMember(int c_id) {
     clubMember newClubMember(c_id, 0, 0);
     membersTree.insert(newClubMember);
     return SUCCESS;
+}
+
+StatusType RecordsCompany::addPrize(int c_id1, int c_id2, double amount) {
+
 }
