@@ -66,9 +66,3 @@ StatusType UnionFind::Union(int id1, int id2) {
     }
     return StatusType::SUCCESS;
 }
-/*
-int UnionFind::topRecHigh(int recordId) {
-    //important!!!! i assume that when calling this function you already made sure that this id exists
-    return UFArray[find(recordId)]->m_height;
-}
-*/

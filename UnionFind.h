@@ -23,12 +23,11 @@ class UnionFind{
 public:
     UFNode* m_leaf;
     UFNode** UFArray;
-    int* columnsArr;
 
     int find(int recordId);
     StatusType Union(int id1,int id2);
 
-    UnionFind(UFNode** array,int* columnsArr): UFArray(array), columnsArr(columnsArr){};
+    UnionFind(UFNode** array): UFArray(array) {};
 
 private:
   int topRecHigh(int recordId);
