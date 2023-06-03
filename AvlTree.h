@@ -238,7 +238,7 @@ int AvlTree<Key, Value>::findKeyOnRight(int key) {
                 found= true;
             }
             else{
-                if (currentNode->m_right>key){
+                if ((currentNode->m_right->m_key) > key){
                     found= true;
                 }
                 else{
