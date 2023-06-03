@@ -50,9 +50,8 @@ StatusType UnionFind::Union(int id1, int id2) {
         if (rootNode1->m_rank==0){
             rootNode2->m_rank++;
         }
+        rootNode1->m_r+= (rootNode2->m_tower_height-rootNode2->m_r);
         rootNode2->m_tower_height+=rootNode1->m_tower_height;
-        rootNode1->m_r+= (rootNode2->m_height-rootNode2->m_r);
-
     }
     else{
         rootNode2->m_father=rootNode1;
@@ -60,7 +59,7 @@ StatusType UnionFind::Union(int id1, int id2) {
         if (rootNode2->m_rank==0){
             rootNode1->m_rank++;
         }
-        rootNode1->m_r+= rootNode2->m_height;
+        rootNode1->m_r+= rootNode2->m_tower_height;
         rootNode2->m_r-=rootNode1->m_r;
         rootNode1->m_tower_height+=rootNode2->m_tower_height;
 
