@@ -42,15 +42,17 @@ StatusType UnionFind::Union(int id1, int id2) {
     }
     auto rootNode1= UFArray[root1];
     auto rootNode2= UFArray[root2];
-    rootNode1->m_height+=rootNode2->m_height;
+    rootNode1->m_height+= rootNode2->m_tower_height;
+
     if (rootNode1->m_rank<=rootNode2->m_rank){
         rootNode1->m_father=rootNode2;
         rootNode2->m_rank+=rootNode1->m_rank;
         if (rootNode1->m_rank==0){
             rootNode2->m_rank++;
         }
-        rootNode1->m_r+= topRecHigh(root2)-rootNode2->m_r;
-        return StatusType::SUCCESS;
+        rootNode2->m_tower_height+=rootNode1->m_tower_height;
+        rootNode1->m_r+= (rootNode2->m_height-rootNode2->m_r);
+
     }
     else{
         rootNode2->m_father=rootNode1;
@@ -58,13 +60,16 @@ StatusType UnionFind::Union(int id1, int id2) {
         if (rootNode2->m_rank==0){
             rootNode1->m_rank++;
         }
-        rootNode1->m_r+= topRecHigh(root2);
+        rootNode1->m_r+= rootNode2->m_height;
         rootNode2->m_r-=rootNode1->m_r;
-        return StatusType::SUCCESS;
-    }
-}
+        rootNode1->m_tower_height+=rootNode2->m_tower_height;
 
+    }
+    return StatusType::SUCCESS;
+}
+/*
 int UnionFind::topRecHigh(int recordId) {
     //important!!!! i assume that when calling this function you already made sure that this id exists
     return UFArray[find(recordId)]->m_height;
 }
+*/

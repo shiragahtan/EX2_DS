@@ -17,8 +17,8 @@ class RecordsCompany {
     //TODO: MAKE PUBLIC
 
   public:
-    int* columnsArr;
-    UFNode** UFArray;
+    //int* columnsArr;
+    //UFNode** UFArray;
     UnionFind* UF;
     int recordNum;
     RecordsCompany();

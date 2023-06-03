@@ -48,11 +48,12 @@ StatusType RecordsCompany::newMonth(int *records_stocks, int number_of_records) 
         return StatusType::INVALID_INPUT;
     }
     auto UFArray = new UFNode *[number_of_records];
+    auto columnsArr= new int [number_of_records];
     for (int i = 0; i < number_of_records; i++) {
         UFArray[i] = new UFNode(i, records_stocks[i]);
         columnsArr[i] = i;
     }
-    UF = new UnionFind(UFArray);
+    UF = new UnionFind(UFArray, columnsArr);
     recordNum = number_of_records;
 
     return StatusType::SUCCESS;
@@ -70,13 +71,13 @@ StatusType RecordsCompany::newMonth(int *records_stocks, int number_of_records) 
             return StatusType::FAILURE;
         }
         int root = UF->find(r_id1);
-        columnsArr[root] = columnsArr[r_id2];
+        UF->columnsArr[root] = UF->columnsArr[r_id2];
 
         return SUCCESS;
     }
 
     StatusType RecordsCompany::getPlace(int r_id, int *column, int *hight) {
-    if(r_id<0 || column==NULL || hight==NULL){ //TODO: NULL or nullptr?
+    if(r_id<0 || column== nullptr || hight== nullptr){ //TODO: make sure it catches nullptrs
         return StatusType::INVALID_INPUT;
     }
     if (r_id>=recordNum){
@@ -90,10 +91,12 @@ StatusType RecordsCompany::newMonth(int *records_stocks, int number_of_records) 
             sum+=currentNode->m_r;
             currentNode=currentNode->m_father;
         }
-    *hight=sum;
-        *column=columnsArr[currentNode->m_id];
+        sum+=currentNode->m_r;
+        *hight=sum;
+        *column=UF->columnsArr[currentNode->m_id];
 
 
 
 
 }
+
