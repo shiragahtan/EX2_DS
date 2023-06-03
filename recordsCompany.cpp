@@ -148,5 +148,6 @@ StatusType RecordsCompany::makeMember(int c_id) {
 }
 
 StatusType RecordsCompany::addPrize(int c_id1, int c_id2, double amount) {
+  int rightRec= membersTree.findKeyOnRight(c_id2);
 
 }
