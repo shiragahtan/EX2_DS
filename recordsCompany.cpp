@@ -6,6 +6,11 @@
 
 RecordsCompany::RecordsCompany() : membersTree() , membersHash(){};
 
+RecordsCompany:: ~RecordsCompany(){
+    delete[] columnsArr;
+    delete UF;
+}
+
 StatusType RecordsCompany::addCostumer(int c_id, int phone) {
     if (c_id < 0 || phone < 0){
         return INVALID_INPUT;
@@ -46,7 +51,7 @@ StatusType RecordsCompany::newMonth(int *records_stocks, int number_of_records) 
         UFArray[i] = new UFNode(i, records_stocks[i]);
         columnsArr[i] = i;
     }
-    UF = new UnionFind(UFArray);
+    UF = new UnionFind(UFArray,number_of_records);
     recordNum = number_of_records;
 
     return StatusType::SUCCESS;
