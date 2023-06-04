@@ -6,7 +6,7 @@
 
 RecordsCompany::RecordsCompany() : membersTree() , membersHash(),numberOfPurchases(nullptr){};//TODO: update with new fields
 
-/*
+/* //TODO: CHECK WHATS WRONG
 RecordsCompany:: ~RecordsCompany(){ //update the dctor
     delete[] columnsArr;
     delete UF;
