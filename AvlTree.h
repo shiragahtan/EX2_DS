@@ -243,11 +243,18 @@ int AvlTree<Key, Value>::add(Node<Key, clubMember>* currentNode,int key, int num
                 found= true;
             }
             else{
-                if ((currentNode->m_right->m_key) > key){
-                    found= true;
+                if ((currentNode->m_right->m_key) >= key){
                     if (added!=0)
                     {
                         currentNode->m_right->m_info.prize-=added;
+                        added=0;
+                    }
+                    if (!currentNode->m_right->m_left)
+                    {
+                        found= true;
+                    }
+                    else{
+                        currentNode=currentNode->m_right->m_left;
                     }
                 }
                 else{
@@ -255,7 +262,7 @@ int AvlTree<Key, Value>::add(Node<Key, clubMember>* currentNode,int key, int num
                 }
             }
         }
-        else if (currentNode->m_key>key)
+        else if (currentNode->m_key>=key)
         {
             if (!currentNode->m_left){
                 found=true;
@@ -265,7 +272,7 @@ int AvlTree<Key, Value>::add(Node<Key, clubMember>* currentNode,int key, int num
             }
 
         }
-        else{
+       /* else{
             found= true;
             if (added==0){
                 currentNode->m_info.prize+=numToAdd;
@@ -273,8 +280,9 @@ int AvlTree<Key, Value>::add(Node<Key, clubMember>* currentNode,int key, int num
         }
             if (currentNode->m_right){
             currentNode->m_right->m_info.prize-=added;
+            added=0;
             }
-        }
+        }*/
     }
     return currentNode->m_key;
 }
