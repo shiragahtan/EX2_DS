@@ -62,7 +62,7 @@ StatusType RecordsCompany::buyRecord(int c_id, int r_id) {
         return StatusType::DOESNT_EXISTS;
     }
     if (membersHash.search(c_id).clubMember) {
-        membersTree.find(c_id)->m_info.selfSaleAmount += (100 + numberOfPurchases[r_id]);
+        membersTree.find(c_id)->m_info.selfSaleAmount -= (100 + numberOfPurchases[r_id]);
     }
     numberOfPurchases[r_id]++;
     return (StatusType::SUCCESS);

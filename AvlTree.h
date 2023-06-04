@@ -288,6 +288,148 @@ int AvlTree<Key, Value>::add(Node<Key, clubMember>* currentNode,int key, int num
 }
 
 
+template <class Key, class Value>
+void AvlTree<Key, Value>::updateFamilyRightRotate(Node<Key, Value>* parent, Node<Key, Value>* futureFather){
+    if (parent->m_left){
+        parent->m_left->m_father = parent;
+    }
+    if (parent->m_father) {
+        if (parent->m_father->m_left == parent){
+            //node is the left child of his father
+            parent->m_father->m_left = futureFather;
+        }
+        else{
+            //node is the right child of his father
+            parent->m_father->m_right = futureFather;
+        }
+    }
+}
+
+
+template <class Key, class Value>
+Node<Key, Value>* AvlTree<Key, Value>::rightRotate(Node<Key, Value>* parent){
+    auto futureFather = parent->m_left;
+    futureFather->m_father = parent->m_father;
+    parent->m_left = futureFather->m_right;
+    updateFamilyRightRotate(parent, futureFather);
+    futureFather->m_right = parent;
+    parent->m_father = futureFather;
+    if (parent == this->root){
+        this->root = futureFather;
+    }
+    return futureFather;
+}
+
+template <class Key, class Value>
+void AvlTree<Key, Value>::updateFamilyLeftRotate(Node<Key, Value>* parent, Node<Key, Value>* futureFather){
+    if(parent->m_right){
+        parent->m_right->m_father = parent;
+    }
+    if (parent->m_father) {
+        if (parent->m_father->m_left == parent){
+            parent->m_father->m_left = futureFather;
+        }
+        else{
+            parent->m_father->m_right = futureFather;
+        }
+    }
+}
+
+template <class Key, class Value>
+Node<Key, Value>* AvlTree<Key, Value>::leftRotate(Node<Key, Value>* parent){
+    auto futureFather = parent->m_right;
+    futureFather->m_father = parent->m_father;
+    parent->m_right = futureFather->m_left;
+    updateFamilyLeftRotate(parent, futureFather);
+    futureFather->m_left = parent;
+    parent->m_father = futureFather;
+    if (parent == this->root){
+        this->root = futureFather;
+    }
+    return futureFather;
+}
+
+
+template <class Key, class Value>
+Node<Key, Value>* AvlTree<Key, Value>::callRightRotate(){
+    rightRotate(this->root);
+}
+
+
+template <class Key, class Value>
+Node<Key, Value>* AvlTree<Key, Value>::callLeftRotate(){
+    leftRotate(this->root);
+}
+
+template <class Key, class Value>
+Node<Key, Value>* AvlTree<Key, Value>::leftRightRotate(Node<Key, Value>* node){
+    node->m_left = leftRotate(node->m_left);
+    auto nodeAfterRightRotate = rightRotate(node);
+    return nodeAfterRightRotate;
+}
+
+template <class Key, class Value>
+Node<Key, Value>* AvlTree<Key, Value>::callLeftRightRotate(){
+    return leftRightRotate(this->root);
+}
+
+template <class Key, class Value>
+Node<Key, Value>* AvlTree<Key, Value>::rightLeftRotate(Node<Key, Value>* node){
+    node->m_right = rightRotate(node->m_right);
+    auto nodeAfterLeftRotate = leftRotate(node);
+    return nodeAfterLeftRotate;
+}
+
+template <class Key, class Value>
+Node<Key, Value>* AvlTree<Key, Value>::correctPositiveBF(Node<Key, Value>* node){
+    int leftBF = getBalanceFactor(node->m_left);
+    if (leftBF >= 0){
+        return rightRotate(node);
+    }
+    else{
+        return leftRightRotate(node);
+    }
+}
+
+template <class Key, class Value>
+Node<Key, Value>* AvlTree<Key, Value>::correctNegativeBF(Node<Key, Value>* node){
+    int rightBF = getBalanceFactor(node->m_right);
+    if (rightBF == 1){
+        return rightLeftRotate(node);
+    }
+    else {
+        return leftRotate(node);
+    }
+}
+
+template <class Key, class Value>
+Node<Key, Value>* AvlTree<Key, Value>::balanceCorrector(Node<Key, Value>* node){
+    int balanceFactor = getBalanceFactor(node);
+    if (balanceFactor > 1){
+        node = correctPositiveBF(node);
+    }
+    else if (balanceFactor < -1){
+        node = correctNegativeBF(node);
+    }
+    if (!node->m_father) {
+        this->root = node;
+    }
+    return node;
+}
+
+template <class Key, class Value>
+void AvlTree<Key, Value>::checkBalanceMistakes(Node<Key, Value>* currentNode){
+    int balanceFactor = getBalanceFactor(currentNode);
+    if (balanceFactor > 1 || balanceFactor < -1){
+        currentNode = balanceCorrector(currentNode);
+    }
+    if (!currentNode->m_father){
+        return;
+    }
+    checkBalanceMistakes(currentNode->m_father);
+}
+
+
 
 //-------------------------------------------------------------
 
