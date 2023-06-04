@@ -235,7 +235,7 @@ int AvlTree<Key, Value>::add(Node<Key, clubMember>* currentNode,int key, int num
     while(!found){
         if (currentNode->m_key<key){
             if (added==0){
-                currentNode->m_info.selfSaleAmount+=numToAdd;
+                currentNode->m_info.treeSaleAmount+=numToAdd;
                 added+=numToAdd;
             }
 
@@ -247,7 +247,7 @@ int AvlTree<Key, Value>::add(Node<Key, clubMember>* currentNode,int key, int num
                     found= true;
                     if (added!=0)
                     {
-                        currentNode->m_right->m_info.selfSaleAmount-=added;
+                        currentNode->m_right->m_info.treeSaleAmount-=added;
                     }
                 }
                 else{
@@ -268,11 +268,11 @@ int AvlTree<Key, Value>::add(Node<Key, clubMember>* currentNode,int key, int num
         else{
             found= true;
             if (added==0){
-                currentNode->m_info.selfSaleAmount+=numToAdd;
+                currentNode->m_info.treeSaleAmount+=numToAdd;
                 added+=numToAdd;
         }
             if (currentNode->m_right){
-            currentNode->m_right->m_info.selfSaleAmount-=added;
+            currentNode->m_right->m_info.treeSaleAmount-=added;
             }
         }
     }
