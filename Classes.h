@@ -7,9 +7,9 @@
 
 class clubMember{
 public:
-    clubMember(int c_id, double treeSaleAmount, double selfSaleAmount);
+    clubMember(int c_id, double prize, double selfSaleAmount);
     int m_c_id;
-    double treeSaleAmount;
+    double prize;
     double selfSaleAmount;
 };
 
