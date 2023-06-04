@@ -353,6 +353,14 @@ void AvlTree<Key, Value>::memberUpdateFamilyLeftRotate(Node<Key, Value>* parent,
 template <class Key, class Value>
 Node<Key, Value>* AvlTree<Key, Value>::memberLeftRotate(Node<Key, Value>* parent){
     auto futureFather = parent->m_right;
+    //added for prize updating
+    int tempPrizeFutureFather = futureFather->m_info.prize;
+    futureFather->m_info.prize += parent->m_info.prize;
+    parent->m_info.prize = (-1)*tempPrizeFutureFather;
+    if (futureFather->m_left){
+        futureFather->m_left->m_info.prize += tempPrizeFutureFather;
+    }
+    //until here
     futureFather->m_father = parent->m_father;
     parent->m_right = futureFather->m_left;
     memberUpdateFamilyLeftRotate(parent, futureFather);
@@ -424,7 +432,7 @@ Node<Key, Value>* AvlTree<Key, Value>::memberBalanceCorrector(Node<Key, Value>* 
         node = memberCorrectPositiveBF(node);
     }
     else if (balanceFactor < -1){
-        node = memberCorrectPositiveBF(node);
+        node = memberCorrectNegativeBF(node);
     }
     if (!node->m_father) {
         this->root = node;

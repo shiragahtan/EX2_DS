@@ -6,10 +6,11 @@
 
 RecordsCompany::RecordsCompany() : membersTree() , membersHash(),numberOfPurchases(nullptr){};//TODO: update with new fields
 
-RecordsCompany:: ~RecordsCompany(){
+/*
+RecordsCompany:: ~RecordsCompany(){ //update the dctor
     delete[] columnsArr;
     delete UF;
-}
+}*/
 
 StatusType RecordsCompany::addCostumer(int c_id, int phone) {
     if (c_id < 0 || phone < 0){
