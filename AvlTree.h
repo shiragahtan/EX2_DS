@@ -171,14 +171,14 @@ int AvlTree<Key, Value>::checkWhichDirection(Node<Key, Value>* parent, Node<Key,
 template <class Key, class Value>
 double AvlTree<Key, Value>::getExpensesOfCostumerAux(Node<Key, Value>* parent, Key key, double expenses) const{
     if (parent->m_key == key ){
-        return expenses += parent->m_info.treeSaleAmount + parent->m_info.selfSaleAmount;
+        return expenses += parent->m_info.prize + parent->m_info.selfSaleAmount;
     }
     int childType = checkWhichChild(parent, key);
     if (childType == LEFT_CHILD){
-        return getExpensesOfCostumerAux(parent->m_left, key, expenses+=parent->m_info.treeSaleAmount);
+        return getExpensesOfCostumerAux(parent->m_left, key, expenses+=parent->m_info.prize);
     }
     else if (childType == RIGHT_CHILD){
-        return getExpensesOfCostumerAux(parent->m_right, key, expenses+=parent->m_info.treeSaleAmount);
+        return getExpensesOfCostumerAux(parent->m_right, key, expenses+=parent->m_info.prize);
     }
     return 0;
 }
@@ -188,7 +188,7 @@ template <class Key, class Value>
 double AvlTree<Key, Value>::getExpensesOfCostumer(int c_id) const{
     double expenses = 0;
     if (root->m_key == c_id){
-        return this->root->m_info.treeSaleAmount + this->root->m_info.selfSaleAmount;
+        return this->root->m_info.prize + this->root->m_info.selfSaleAmount;
     }
     return getExpensesOfCostumerAux(this->root, c_id, expenses);
 }
@@ -197,11 +197,11 @@ template <class Key, class Value>
 void AvlTree<Key, Value>::insertAuxMember(Node<Key, Value>* parent, Node<Key, Value>* node, double selfSaleAmount){
     int direction = checkWhichDirection(parent, node);
     if (direction == LEFT_CHILD || direction == RIGHT_CHILD) {
-        node->m_info.selfSaleAmount -= (selfSaleAmount + parent->m_info.treeSaleAmount);
+        node->m_info.selfSaleAmount -= (selfSaleAmount + parent->m_info.prize);
         return;
     }
-    else if (direction == NO_DECISION && node->m_key < parent->m_key) insertAuxMember(parent->m_left, node, selfSaleAmount+= parent->m_info.treeSaleAmount); // GOING LEFT
-    else if (direction == NO_DECISION && node->m_key > parent->m_key) insertAuxMember(parent->m_right, node,selfSaleAmount+= parent->m_info.treeSaleAmount); // GOING RIGHT
+    else if (direction == NO_DECISION && node->m_key < parent->m_key) insertAuxMember(parent->m_left, node, selfSaleAmount+= parent->m_info.prize); // GOING LEFT
+    else if (direction == NO_DECISION && node->m_key > parent->m_key) insertAuxMember(parent->m_right, node,selfSaleAmount+= parent->m_info.prize); // GOING RIGHT
     checkBalanceMistakes(node);
 }
 
@@ -235,7 +235,7 @@ int AvlTree<Key, Value>::add(Node<Key, clubMember>* currentNode,int key, int num
     while(!found){
         if (currentNode->m_key<key){
             if (added==0){
-                currentNode->m_info.treeSaleAmount+=numToAdd;
+                currentNode->m_info.prize+=numToAdd;
                 added+=numToAdd;
             }
 
@@ -247,7 +247,7 @@ int AvlTree<Key, Value>::add(Node<Key, clubMember>* currentNode,int key, int num
                     found= true;
                     if (added!=0)
                     {
-                        currentNode->m_right->m_info.treeSaleAmount-=added;
+                        currentNode->m_right->m_info.prize-=added;
                     }
                 }
                 else{
@@ -268,11 +268,11 @@ int AvlTree<Key, Value>::add(Node<Key, clubMember>* currentNode,int key, int num
         else{
             found= true;
             if (added==0){
-                currentNode->m_info.treeSaleAmount+=numToAdd;
+                currentNode->m_info.prize+=numToAdd;
                 added+=numToAdd;
         }
             if (currentNode->m_right){
-            currentNode->m_right->m_info.treeSaleAmount-=added;
+            currentNode->m_right->m_info.prize-=added;
             }
         }
     }
