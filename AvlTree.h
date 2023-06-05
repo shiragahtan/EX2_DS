@@ -324,6 +324,14 @@ void AvlTree<Key, Value>::memberUpdateFamilyRightRotate(Node<Key, Value>* parent
 template <class Key, class Value>
 Node<Key, Value>* AvlTree<Key, Value>::memberRightRotate(Node<Key, Value>* parent){
     auto futureFather = parent->m_left;
+    //added for updating prize:
+    int tempPrizeFutureFather = futureFather->m_info.prize;
+    futureFather->m_info.prize += parent->m_info.prize;
+    parent->m_info.prize = (-1)*tempPrizeFutureFather;
+    if (futureFather->m_right) {
+        futureFather->m_right->m_info.prize += tempPrizeFutureFather;
+    }
+    //until here -----
     futureFather->m_father = parent->m_father;
     parent->m_left = futureFather->m_right;
     memberUpdateFamilyRightRotate(parent, futureFather);

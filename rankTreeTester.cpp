@@ -163,13 +163,13 @@ int main(){
     int size = 0;
     int count = 0;
     //determines the size of the tree - change i to test different sizes
-    for (int i = 1; i < 2000; i++) {
+    for (int i = 1; i < 1000; i++) {
         vector.push_back(i);
         size = i;
     }
 
     //randomizes the vector, and k is the number of trees to randomize - change k to test different numbers of trees
-    for (int k = 1; k < 1000; ++k) {
+    for (int k = 1; k < 400; ++k) {
         count = k;
         unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
         shuffle (vector.begin(), vector.end(), std::default_random_engine(seed));
