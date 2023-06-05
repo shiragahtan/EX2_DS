@@ -41,15 +41,20 @@ StatusType RecordsCompany::newMonth(int *records_stocks, int number_of_records) 
     if (number_of_records<0){
         return StatusType::INVALID_INPUT;
     }
-    auto UFArray = new UFNode *[number_of_records];
-    columnsArr= new int [number_of_records];
-    numberOfPurchases = new int[number_of_records]; //TODO: TRY CATCH EXCEPTION
-    for (int i = 0; i < number_of_records; i++) {
-        UFArray[i] = new UFNode(i, records_stocks[i]);
-        columnsArr[i] = i;
-        numberOfPurchases[i] =0;
+    try {
+        auto UFArray = new UFNode *[number_of_records];
+        columnsArr = new int[number_of_records];
+        numberOfPurchases = new int[number_of_records];
+        for (int i = 0; i < number_of_records; i++) {
+            UFArray[i] = new UFNode(i, records_stocks[i]);
+            columnsArr[i] = i;
+            numberOfPurchases[i] = 0;
+        }
+        UF = new UnionFind(UFArray,number_of_records);
     }
-    UF = new UnionFind(UFArray,number_of_records);
+    catch (std::exception &exe){
+        return ALLOCATION_ERROR;
+    }
     recordNum = number_of_records;
     return StatusType::SUCCESS;
     //TODO: TO UPDATE ALL THE VALUES OF THE COSTUMERS TO 0
