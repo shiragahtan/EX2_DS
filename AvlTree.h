@@ -418,7 +418,7 @@ Node<Key, Value>* AvlTree<Key, Value>::memberCorrectPositiveBF(Node<Key, Value>*
         return memberRightRotate(node);
     }
     else{
-        return memberLeftRotate(node);
+        return memberLeftRightRotate(node);
     }
 }
 
