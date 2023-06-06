@@ -8,8 +8,8 @@ RecordsCompany::RecordsCompany() : membersTree() , membersHash(),numberOfPurchas
 
 
 RecordsCompany:: ~RecordsCompany(){
-    membersHash.~HashTable();
-    membersTree.~AvlTree();
+    //membersHash.~HashTable();
+    //membersTree.~AvlTree();
     if (isNewMonth){
         delete[] columnsArr;
         delete UF;
