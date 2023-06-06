@@ -8,8 +8,6 @@
 
 class RecordsCompany {
   private:
-
-  public:
     AvlTree<int,clubMember> membersTree;
     HashTable membersHash;
 
@@ -17,7 +15,6 @@ class RecordsCompany {
     StatusType addToMembersTree(int c_id);
     StatusType addPrizeUntil(int c_id,double  amount);
 
-    //TODO: MAKE PRIVATE
 
   public:
     int* columnsArr;

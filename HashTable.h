@@ -10,8 +10,6 @@
 //class HashTable;
 
 class HashTable{
-
-public:
     int m_size;
     int numMembers;
     AvlTree<int,Costumer> **costumerArr; //an array that points to AVLTREE objects
@@ -20,7 +18,7 @@ public:
     void hashTableDoubling();
     void reHashing(int sizeBefore);
 
-    //TODO: move to private all up
+public:
 
     HashTable();
     ~HashTable();

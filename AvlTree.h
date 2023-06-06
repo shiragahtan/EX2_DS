@@ -201,7 +201,7 @@ int AvlTree<Key, Value>::checkWhichDirection(Node<Key, Value>* parent, Node<Key,
 }
 
 //----------------------------------
-//TODO: added for membersTree
+//added for membersTree
 
 template <class Key, class Value>
 double AvlTree<Key, Value>::getExpensesOfCostumerAux(Node<Key, Value>* parent, Key key, double expenses) const{
