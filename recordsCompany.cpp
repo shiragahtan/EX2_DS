@@ -6,11 +6,12 @@
 
 RecordsCompany::RecordsCompany() : membersTree() , membersHash(),numberOfPurchases(nullptr){};//TODO: update with new fields
 
-/* //TODO: CHECK WHATS WRONG
 RecordsCompany:: ~RecordsCompany(){ //update the dctor
     delete[] columnsArr;
     delete UF;
-}*/
+    membersHash.~HashTable();
+    membersTree.~AvlTree();
+}
 
 StatusType RecordsCompany::addCostumer(int c_id, int phone) {
     if (c_id < 0 || phone < 0){
@@ -61,7 +62,7 @@ StatusType RecordsCompany::newMonth(int *records_stocks, int number_of_records) 
 }
 
 StatusType RecordsCompany::buyRecord(int c_id, int r_id) {
-    if (c_id < 0 || c_id < 0) {
+    if (c_id < 0 || r_id < 0) {
         return StatusType::INVALID_INPUT;
     }
     if (membersHash.searchIfExists(c_id) == NOT_IN_HASH || r_id >= recordNum) {
@@ -134,6 +135,7 @@ Output_t<double> RecordsCompany::getExpenses(int c_id){
     }
     return Output_t<double>(membersTree.AvlTree<int, clubMember>::getExpensesOfCostumer(c_id));
 }
+
 
 StatusType RecordsCompany::makeMember(int c_id) {
     if (c_id < 0){

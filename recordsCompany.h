@@ -25,7 +25,7 @@ class RecordsCompany {
     int recordNum;
     int* numberOfPurchases;
     RecordsCompany();
-    //~RecordsCompany(); //TODO:IMPLEMENT
+    ~RecordsCompany(); //TODO:IMPLEMENT
     StatusType newMonth(int *records_stocks, int number_of_records);
     StatusType addCostumer(int c_id, int phone);
     Output_t<int> getPhone(int c_id);
