@@ -4,7 +4,7 @@
 
 #include "recordsCompany.h"
 
-RecordsCompany::RecordsCompany() : membersTree() , membersHash(),numberOfPurchases(nullptr){};//TODO: update with new fields
+RecordsCompany::RecordsCompany() : membersTree() , membersHash(),numberOfPurchases(nullptr){};
 
 
 RecordsCompany:: ~RecordsCompany(){ //update the dctor

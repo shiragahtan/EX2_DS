@@ -151,14 +151,14 @@ void AvlTree<Key, Value>::inorderResetAux(Node<Key, Value>* node){
     }
     node->m_info.selfSaleAmount =0;
     node->m_info.prize =0;
-    inorderOppositeAux(node->m_right);
-    inorderOppositeAux(node->m_left);
+    inorderResetAux(node->m_right);
+    inorderResetAux(node->m_left);
 }
 
 
 template <class Key, class Value>
 void AvlTree<Key, Value>::inorderReset(){
-    inorderOppositeAux(root);
+    inorderResetAux(root);
 }
 
 template <class Key, class Value>
