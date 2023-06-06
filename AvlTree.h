@@ -10,8 +10,6 @@
 using namespace std;
 
 
-#define FAILED 0
-#define SUCCEED 1
 #include <exception>
 
 template <class Key, class Value>
@@ -254,7 +252,7 @@ int AvlTree<Key, Value>::insert(clubMember memberToAdd){
         }
     }
     if ((this->find(memberToAdd.m_c_id) != nullptr)){
-        return FAILED;
+        return FAILURE;
     }
     m_size++;
     auto newNode = new Node<Key, Value>(memberToAdd.m_c_id, memberToAdd);
@@ -504,7 +502,7 @@ int AvlTree<Key, Value>::insert(Key key, Value info){
         }
     }
     if ((this->find(key) != nullptr)){
-        return FAILED;
+        return FAILURE;
     }
     m_size++;
     auto newNode = new Node<Key, Value>(key, info);
