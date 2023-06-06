@@ -58,12 +58,12 @@ StatusType RecordsCompany::newMonth(int *records_stocks, int number_of_records) 
         }
         UF = new UnionFind(UFArray,number_of_records);
     }
-    catch (std::exception &exe){
+    catch (const std::bad_alloc&){
         return ALLOCATION_ERROR;
     }
     isNewMonth= true;
     recordNum = number_of_records;
-    //membersTree.AvlTree<int, clubMember>::inorderReset();
+    membersTree.inorderReset();
     return StatusType::SUCCESS;
 }
 

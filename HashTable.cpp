@@ -5,9 +5,14 @@
 #include "HashTable.h"
 
 HashTable::HashTable() :m_size(START_SIZE), numMembers(0) {
-    costumerArr = new AvlTree<int,Costumer> *[m_size];
-    for (int i=0; i<m_size; i++){
-        costumerArr[i] = nullptr;
+    try {
+        costumerArr = new AvlTree<int, Costumer> *[m_size];
+        for (int i = 0; i < m_size; i++) {
+            costumerArr[i] = nullptr;
+        }
+    }
+    catch (const std::bad_alloc&){
+        throw;
     }
 }
 
@@ -30,15 +35,15 @@ StatusType_t HashTable::insertCostumer(Costumer newCostumer) {
     if (costumerArr[indexOfNew] == nullptr){
         try {
             costumerArr[indexOfNew] = new AvlTree<int, Costumer>();
+            if (costumerArr[indexOfNew]->insert(newCostumer.m_c_id, newCostumer) == ALLOCATION_ERROR){
+                return ALLOCATION_ERROR;
+            }
+            return SUCCESS;
         }
         catch (std::exception &exe){
             return ALLOCATION_ERROR;
         }
     }
-    if (costumerArr[indexOfNew]->insert(newCostumer.m_c_id, newCostumer) == ALLOCATION_ERROR){
-        return ALLOCATION_ERROR;
-    }
-    return SUCCESS;
 }
 
 
@@ -71,24 +76,29 @@ void HashTable::makeMember(int key){
 
 
 void HashTable::reHashing(int sizeBefore) {
-    AvlTree<int,Costumer> **newCostumerArr = new AvlTree<int,Costumer> *[m_size];
-    for (int i=0; i < m_size; i++){
-        newCostumerArr[i] = nullptr;
-    }
-    for(int i=0; i< sizeBefore; i++){
-        while (costumerArr[i] != nullptr && costumerArr[i]->m_size > 0){
-            Node<int,Costumer> *NodeToAdd = costumerArr[i]->getMax();
-            int newIndex = hashFunction(NodeToAdd->m_key);
-            if (newCostumerArr[newIndex] == nullptr){
-                newCostumerArr[newIndex] = new AvlTree<int,Costumer>();
-            }
-            newCostumerArr[newIndex]->insert(NodeToAdd->m_key, NodeToAdd->m_info);
-            costumerArr[i]->remove(NodeToAdd->m_key);
+    try {
+        AvlTree<int, Costumer> **newCostumerArr = new AvlTree<int, Costumer> *[m_size];
+        for (int i = 0; i < m_size; i++) {
+            newCostumerArr[i] = nullptr;
         }
-        delete costumerArr[i];
+        for (int i = 0; i < sizeBefore; i++) {
+            while (costumerArr[i] != nullptr && costumerArr[i]->m_size > 0) {
+                Node<int, Costumer> *NodeToAdd = costumerArr[i]->getMax();
+                int newIndex = hashFunction(NodeToAdd->m_key);
+                if (newCostumerArr[newIndex] == nullptr) {
+                    newCostumerArr[newIndex] = new AvlTree<int, Costumer>();
+                }
+                newCostumerArr[newIndex]->insert(NodeToAdd->m_key, NodeToAdd->m_info);
+                costumerArr[i]->remove(NodeToAdd->m_key);
+            }
+            delete costumerArr[i];
+        }
+        delete[] costumerArr;
+        this->costumerArr = newCostumerArr;
     }
-    delete[] costumerArr;
-    this->costumerArr = newCostumerArr;
+    catch (const std::bad_alloc&){
+        throw;
+    }
 };
 
 void HashTable::hashTableDoubling(){
@@ -96,13 +106,5 @@ void HashTable::hashTableDoubling(){
     m_size *=EXPAND_RATE;
     reHashing(sizeBeforeChange);
 }
-
-//TODO:: CHECK IF NEEDED
-/*
-void HashTable::hashTableShrinking(){
-    int sizeBeforeChange = m_size;
-    m_size /=EXPAND_RATE;
-    reHashing(sizeBeforeChange);
-}*/
 
 
