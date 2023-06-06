@@ -44,7 +44,12 @@ Output_t<int> RecordsCompany::getPhone(int c_id){
 StatusType RecordsCompany::newMonth(int *records_stocks, int number_of_records) {
     if (number_of_records<0){
         return StatusType::INVALID_INPUT;
-    }
+    }/*
+    if (isNewMonth){
+        delete[] columnsArr;
+        delete[] numberOfPurchases;
+        delete UF;
+    }*/
     try {
         auto UFArray = new UFNode *[number_of_records];
         columnsArr = new int[number_of_records];

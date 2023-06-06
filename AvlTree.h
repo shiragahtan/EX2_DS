@@ -98,9 +98,6 @@ static int RIGHT_CHILD =2;
 static int NOT_A_CHILD = 0;
 static int NO_DECISION = 0;
 
-/*
-static int ALLOCATION_ERROR = 3;
- */
 
 template <class Key, class Value>
 AvlTree<Key, Value>:: ~AvlTree(){

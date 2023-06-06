@@ -38,12 +38,13 @@ StatusType_t HashTable::insertCostumer(Costumer newCostumer) {
             if (costumerArr[indexOfNew]->insert(newCostumer.m_c_id, newCostumer) == ALLOCATION_ERROR){
                 return ALLOCATION_ERROR;
             }
-            return SUCCESS;
         }
         catch (std::exception &exe){
             return ALLOCATION_ERROR;
         }
     }
+    return SUCCESS;
+
 }
 
 
