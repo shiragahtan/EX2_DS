@@ -24,8 +24,9 @@ class RecordsCompany {
     UnionFind* UF;
     int recordNum;
     int* numberOfPurchases;
+    bool isNewMonth;
     RecordsCompany();
-    //~RecordsCompany(); //TODO:IMPLEMENT
+    ~RecordsCompany();
     StatusType newMonth(int *records_stocks, int number_of_records);
     StatusType addCostumer(int c_id, int phone);
     Output_t<int> getPhone(int c_id);

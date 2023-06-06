@@ -4,13 +4,16 @@
 
 #include "recordsCompany.h"
 
-RecordsCompany::RecordsCompany() : membersTree() , membersHash(),numberOfPurchases(nullptr){};//TODO: update with new fields
+RecordsCompany::RecordsCompany() : membersTree() , membersHash(),numberOfPurchases(nullptr), isNewMonth(false){};//TODO: update with new fields
 
-/* //TODO: CHECK WHATS WRONG
+
 RecordsCompany:: ~RecordsCompany(){ //update the dctor
-    delete[] columnsArr;
-    delete UF;
-}*/
+    if (isNewMonth){
+        delete[] columnsArr;
+        delete UF;
+    }
+
+}
 
 StatusType RecordsCompany::addCostumer(int c_id, int phone) {
     if (c_id < 0 || phone < 0){
@@ -55,6 +58,7 @@ StatusType RecordsCompany::newMonth(int *records_stocks, int number_of_records) 
     catch (std::exception &exe){
         return ALLOCATION_ERROR;
     }
+    isNewMonth= true;
     recordNum = number_of_records;
     return StatusType::SUCCESS;
     //TODO: TO UPDATE ALL THE VALUES OF THE COSTUMERS TO 0
