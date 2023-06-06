@@ -10,6 +10,7 @@ RecordsCompany::RecordsCompany() : membersTree() , membersHash(),numberOfPurchas
 RecordsCompany:: ~RecordsCompany(){ //update the dctor
     if (isNewMonth){
         delete[] columnsArr;
+        delete[] numberOfPurchases;
         delete UF;
     }
 
