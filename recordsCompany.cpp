@@ -62,8 +62,8 @@ StatusType RecordsCompany::newMonth(int *records_stocks, int number_of_records) 
     }
     isNewMonth= true;
     recordNum = number_of_records;
+    membersTree.AvlTree<int, clubMember>::inorderReset();
     return StatusType::SUCCESS;
-    //TODO: TO UPDATE ALL THE VALUES OF THE COSTUMERS TO 0
 }
 
 StatusType RecordsCompany::buyRecord(int c_id, int r_id) {
@@ -74,7 +74,7 @@ StatusType RecordsCompany::buyRecord(int c_id, int r_id) {
         return StatusType::DOESNT_EXISTS;
     }
     if (membersHash.search(c_id).clubMember) {
-        membersTree.find(c_id)->m_info.selfSaleAmount -= (100 + numberOfPurchases[r_id]);
+        membersTree.find(c_id)->m_info.selfSaleAmount += (100 + numberOfPurchases[r_id]);
     }
     numberOfPurchases[r_id]++;
     return (StatusType::SUCCESS);
