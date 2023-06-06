@@ -8,8 +8,6 @@ RecordsCompany::RecordsCompany() : membersTree() , membersHash(),numberOfPurchas
 
 
 RecordsCompany:: ~RecordsCompany(){ //update the dctor
-    //membersHash.~HashTable();
-    //membersTree.~AvlTree();
     if (isNewMonth){
         delete[] columnsArr;
         delete[] numberOfPurchases;
@@ -164,6 +162,10 @@ StatusType RecordsCompany::makeMember(int c_id) {
 StatusType RecordsCompany::addPrize(int c_id1, int c_id2, double amount) {
     if (c_id1<0 || c_id1>c_id2 || amount<=0){
         return StatusType ::INVALID_INPUT;
+    }
+    if (membersTree.root== nullptr)
+    {
+        return StatusType ::SUCCESS;
     }
   membersTree.add(membersTree.root,c_id2,-amount);
   membersTree.add(membersTree.root,c_id1,amount);
