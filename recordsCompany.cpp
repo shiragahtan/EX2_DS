@@ -4,10 +4,12 @@
 
 #include "recordsCompany.h"
 
-RecordsCompany::RecordsCompany() : membersTree() , membersHash(),numberOfPurchases(nullptr), isNewMonth(false){};//TODO: update with new fields
+RecordsCompany::RecordsCompany() : membersTree() , membersHash(),numberOfPurchases(nullptr){};//TODO: update with new fields
 
 
 RecordsCompany:: ~RecordsCompany(){ //update the dctor
+    membersHash.~HashTable();
+    membersTree.~AvlTree();
     if (isNewMonth){
         delete[] columnsArr;
         delete[] numberOfPurchases;
@@ -61,19 +63,19 @@ StatusType RecordsCompany::newMonth(int *records_stocks, int number_of_records) 
     }
     isNewMonth= true;
     recordNum = number_of_records;
+    membersTree.AvlTree<int, clubMember>::inorderReset();
     return StatusType::SUCCESS;
-    //TODO: TO UPDATE ALL THE VALUES OF THE COSTUMERS TO 0
 }
 
 StatusType RecordsCompany::buyRecord(int c_id, int r_id) {
-    if (c_id < 0 || c_id < 0) {
+    if (c_id < 0 || r_id < 0) {
         return StatusType::INVALID_INPUT;
     }
     if (membersHash.searchIfExists(c_id) == NOT_IN_HASH || r_id >= recordNum) {
         return StatusType::DOESNT_EXISTS;
     }
     if (membersHash.search(c_id).clubMember) {
-        membersTree.find(c_id)->m_info.selfSaleAmount -= (100 + numberOfPurchases[r_id]);
+        membersTree.find(c_id)->m_info.selfSaleAmount += (100 + numberOfPurchases[r_id]);
     }
     numberOfPurchases[r_id]++;
     return (StatusType::SUCCESS);
@@ -139,6 +141,7 @@ Output_t<double> RecordsCompany::getExpenses(int c_id){
     }
     return Output_t<double>(membersTree.AvlTree<int, clubMember>::getExpensesOfCostumer(c_id));
 }
+
 
 StatusType RecordsCompany::makeMember(int c_id) {
     if (c_id < 0){

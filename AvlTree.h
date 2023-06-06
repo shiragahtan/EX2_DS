@@ -66,9 +66,11 @@ private:
     Node<Key, Value>* memberCallLeftRightRotate();
     Node<Key, Value>* memberCallLeftRotate();
     Node<Key, Value>* memberCallRightRotate();
+    void inorderResetAux(Node<Key, Value>* node);
 
 
 public:
+    void inorderReset();
     double getExpensesOfCostumer(int c_id) const;
     void deleteTreeAux(Node<Key, Value>* node);
     static int height(Node<Key, Value>* nodeToCheck);
@@ -141,6 +143,23 @@ int AvlTree<Key, Value>::inorderOppositeAux(Node<Key, Value>* node, int* arr, in
     return inorderOppositeAux(node->m_left, arr, count);
 }
 
+//void inorderResetAux(Node<Key, Value>* node);
+template <class Key, class Value>
+void AvlTree<Key, Value>::inorderResetAux(Node<Key, Value>* node){
+    if (!node){
+        return;
+    }
+    node->m_info.selfSaleAmount =0;
+    node->m_info.prize =0;
+    inorderOppositeAux(node->m_right);
+    inorderOppositeAux(node->m_left);
+}
+
+
+template <class Key, class Value>
+void AvlTree<Key, Value>::inorderReset(){
+    inorderOppositeAux(root);
+}
 
 template <class Key, class Value>
 int AvlTree<Key, Value>::height(Node<Key, Value>* nodeToCheck){
