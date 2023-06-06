@@ -63,7 +63,7 @@ StatusType RecordsCompany::newMonth(int *records_stocks, int number_of_records) 
     }
     isNewMonth= true;
     recordNum = number_of_records;
-    membersTree.AvlTree<int, clubMember>::inorderReset();
+    //membersTree.AvlTree<int, clubMember>::inorderReset();
     return StatusType::SUCCESS;
 }
 

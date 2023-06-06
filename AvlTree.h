@@ -247,7 +247,7 @@ int AvlTree<Key, Value>::insert(clubMember memberToAdd){
             auto node1 = new Node<Key, Value>(memberToAdd.m_c_id, memberToAdd);
             root = node1;
             m_size++;
-            return SUCCEED;
+            return SUCCESS;
         }
         catch (std::exception &exe){
             return ALLOCATION_ERROR;
@@ -259,7 +259,7 @@ int AvlTree<Key, Value>::insert(clubMember memberToAdd){
     m_size++;
     auto newNode = new Node<Key, Value>(memberToAdd.m_c_id, memberToAdd);
     insertAuxMember(this->root,newNode, 0);
-    return SUCCEED;
+    return SUCCESS;
 }
 
 template <class Key, class Value>
@@ -497,7 +497,7 @@ int AvlTree<Key, Value>::insert(Key key, Value info){
             auto node1 = new Node<Key, Value>(key, info);
             root = node1;
             m_size++;
-            return SUCCEED;
+            return SUCCESS;
         }
         catch (std::exception &exe){
             return ALLOCATION_ERROR;
@@ -509,7 +509,7 @@ int AvlTree<Key, Value>::insert(Key key, Value info){
     m_size++;
     auto newNode = new Node<Key, Value>(key, info);
     insertAux(this->root,newNode);
-    return SUCCEED;
+    return SUCCESS;
 }
 
 template <class Key, class Value>

@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void print(string cmd, StatusType res);
+void print (string cmd, StatusType res);
 
 void print(string cmd, Output_t<bool> res);
 
