@@ -4,7 +4,7 @@
 
 #include "recordsCompany.h"
 
-RecordsCompany::RecordsCompany() : membersTree() , membersHash(),numberOfPurchases(nullptr){};
+RecordsCompany::RecordsCompany() : membersTree() , membersHash(),numberOfPurchases(nullptr),isNewMonth(false){};
 
 
 RecordsCompany:: ~RecordsCompany(){ //update the dctor
@@ -44,27 +44,32 @@ Output_t<int> RecordsCompany::getPhone(int c_id){
 StatusType RecordsCompany::newMonth(int *records_stocks, int number_of_records) {
     if (number_of_records<0){
         return StatusType::INVALID_INPUT;
-    }/*
-    if (isNewMonth){
+    }
+    if (isNewMonth) {
         delete[] columnsArr;
         delete[] numberOfPurchases;
-        delete UF;
-    }*/
-    try {
-        auto UFArray = new UFNode *[number_of_records];
+       delete UF;
+
+    }
+    else{
+        isNewMonth= true;
+    }
         columnsArr = new int[number_of_records];
         numberOfPurchases = new int[number_of_records];
+
+    try {
+        auto UFArray = new UFNode *[number_of_records];
         for (int i = 0; i < number_of_records; i++) {
             UFArray[i] = new UFNode(i, records_stocks[i]);
             columnsArr[i] = i;
             numberOfPurchases[i] = 0;
         }
-        UF = new UnionFind(UFArray,number_of_records);
+            UF = new UnionFind(UFArray,number_of_records);
+
     }
     catch (const std::bad_alloc&){
         return ALLOCATION_ERROR;
     }
-    isNewMonth= true;
     recordNum = number_of_records;
     membersTree.inorderReset();
     return StatusType::SUCCESS;

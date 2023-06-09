@@ -30,7 +30,10 @@ public:
 
     ~UnionFind(){
         for (int i=0;i<recordNum;i++){
-            delete UFArray[i];
+            if (UFArray[i]!= nullptr){
+                UFArray[i]->m_father= nullptr;
+                delete UFArray[i];
+            }
         }
         delete[] UFArray;
     }
