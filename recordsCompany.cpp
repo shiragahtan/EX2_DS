@@ -124,6 +124,7 @@ StatusType RecordsCompany::getPlace(int r_id, int *column, int *hight) {
         }
         sum+=currentNode->m_r;
         *hight=sum;
+        currentNode=UF->UFArray[UF->find(r_id)];
         *column=columnsArr[currentNode->m_id];
     return StatusType ::SUCCESS;
 }
