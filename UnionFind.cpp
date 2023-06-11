@@ -42,7 +42,6 @@ StatusType UnionFind::Union(int id1, int id2) {
     }
     auto rootNode1= UFArray[root1];
     auto rootNode2= UFArray[root2];
-    rootNode1->m_height+= rootNode2->m_tower_height;
 
     if (rootNode1->m_rank<=rootNode2->m_rank){
         rootNode1->m_father=rootNode2;

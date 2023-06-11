@@ -12,10 +12,9 @@ public:
     UFNode* m_father;
     int m_rank;
     int m_r;
-    int m_height;
     int m_tower_height;
 
-    explicit UFNode(int id, int height):m_id(id),m_father(nullptr),m_rank(0),m_r(0),m_height(height),m_tower_height(height){};
+    explicit UFNode(int id, int height):m_id(id),m_father(nullptr),m_rank(0),m_r(0),m_tower_height(height){};
 };
 
 class UnionFind{
