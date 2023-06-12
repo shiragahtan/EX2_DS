@@ -4,6 +4,8 @@
 
 #include "HashTable.h"
 
+
+
 HashTable::HashTable() :m_size(START_SIZE), numMembers(0) {
     try {
         costumerArr = new AvlTree<int, Costumer> *[m_size];

@@ -4,6 +4,7 @@
 
 #include "recordsCompany.h"
 
+
 RecordsCompany::RecordsCompany() : membersTree() , membersHash(),numberOfPurchases(nullptr),isNewMonth(false){};
 
 

@@ -7,9 +7,16 @@
 #include "Classes.h"
 #include "AvlTree.h"
 
+const int START_SIZE = 2;
+const int EXPAND_RATE = 2;
+const int NOT_IN_HASH = -1;
+
+
 //class HashTable;
 
 class HashTable{
+
+
     int m_size;
     int numMembers;
     AvlTree<int,Costumer> **costumerArr; //an array that points to AVLTREE objects
@@ -27,9 +34,4 @@ public:
     Costumer search(int key) const;
     int searchIfExists(int key) const;
 };
-
-static int START_SIZE = 2;
-static int EXPAND_RATE = 2;
-static int NOT_IN_HASH = -1;
-
 #endif //EX2_DS_STRUCTURES_H
